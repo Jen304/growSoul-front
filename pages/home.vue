@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height>
-    <emotion-form :questionPackage="questionPackage" @customMethod="nextQuestionPackage"></emotion-form>
+    <emotion-form :questionPackage="questionPackage" @customMethod="questionPackage.method"></emotion-form>
   </v-container>
 </template>
 
@@ -40,7 +40,8 @@ export default {
       // first question package for emotion form
       questionPackage: {
         question: "How are you now?",
-        options: emotions
+        options: emotions,
+        method: this.nextQuestionPackage
       }
     };
   },
@@ -52,8 +53,15 @@ export default {
       console.log("It works");
       this.questionPackage = {
         question: "What is the level of this feeling?",
-        options: levels
+        options: levels,
+        method: this.submit
       };
+    },
+    submit() {
+      this.questionPackage = {
+        notShow: true
+      };
+      console.log("it works");
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
-  <v-layout justify-center>
-    <v-flex xs11 sm6 md2>
+  <v-layout justify-center v-if="!questionPackage.notShow">
+    <v-flex xs11 sm6 md3>
       <v-card class="elevation-10">
         <v-card-title>{{questionPackage.question}}</v-card-title>
         <v-list class="option">
