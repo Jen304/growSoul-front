@@ -1,7 +1,9 @@
-# growSoul
+# Grow your soul
 
 > A tracking emotion project
-
+## Tools
+* [Nuxt.js]()
+* [Vuetify]() 
 ## Build Setup
 
 ```bash

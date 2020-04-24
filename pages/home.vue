@@ -37,6 +37,8 @@ export default {
   },
   data() {
     return {
+      // user emotion init
+      emotion: null,
       // first question package for emotion form
       questionPackage: {
         question: "How are you now?",
@@ -49,19 +51,29 @@ export default {
     "emotion-form": EmotionForm
   },
   methods: {
-    nextQuestionPackage() {
-      console.log("It works");
+    // method for the first package, change the question package
+    nextQuestionPackage(value) {
+      this.emotion = value;
+
       this.questionPackage = {
         question: "What is the level of this feeling?",
         options: levels,
         method: this.submit
       };
     },
-    submit() {
+    // method for the second package
+    // change the question package and hide the form
+    submit(level) {
+      const emotion = this.emotion;
+      const newEmotion = { value: emotion, level };
+      this.$store.commit("emotion/add", newEmotion);
+      //console.log(newEmotion);
       this.questionPackage = {
-        notShow: true
+        hide: true,
+        method() {
+          return;
+        }
       };
-      console.log("it works");
     }
   }
 };

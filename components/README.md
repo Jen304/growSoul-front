@@ -1,4 +1,5 @@
 # COMPONENTS
 
 ## Components list
-* Form: centered form to be use for login and signup page
+* UserForm: centered form to be use for login and signup page
+* EmotionForm: ask what kind of emotion and its level
