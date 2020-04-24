@@ -111,7 +111,14 @@ export default {
       infoIcon: mdiInformationOutline
     };
   },
-  props: ["title"],
+  computed: {
+    title() {
+      console.log(this.$store.state.page.title);
+      return this.$store.state.page.title;
+      //return "trang";
+    }
+  },
+
   methods: {}
 };
 </script>
