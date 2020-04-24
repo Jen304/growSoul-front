@@ -4,7 +4,11 @@
       <v-card class="elevation-10">
         <v-card-title>{{questionPackage.question}}</v-card-title>
         <v-list class="option">
-          <v-list-item v-for="(option, i) in questionPackage.options" :key="i" @click>
+          <v-list-item
+            v-for="(option, i) in questionPackage.options"
+            :key="i"
+            @click="$emit('customMethod')"
+          >
             <v-list-item-avatar v-if="option.icon">
               <v-icon>{{ option.icon}}</v-icon>
             </v-list-item-avatar>
@@ -32,8 +36,8 @@ export default {
       // pair value and icon
     };
   },
-
-  props: ["questionPackage"]
+  props: ["questionPackage"],
+  methods: {}
 };
 </script>
 <style scoped>

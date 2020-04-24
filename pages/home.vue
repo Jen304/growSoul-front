@@ -1,8 +1,6 @@
 <template>
   <v-container fluid fill-height>
-    <!-- first question -->
-
-    <emotion-form :questionPackage="questionPackage"></emotion-form>
+    <emotion-form :questionPackage="questionPackage" @customMethod="nextQuestionPackage"></emotion-form>
   </v-container>
 </template>
 
@@ -49,7 +47,15 @@ export default {
   components: {
     "emotion-form": EmotionForm
   },
-  methods: {}
+  methods: {
+    nextQuestionPackage() {
+      console.log("It works");
+      this.questionPackage = {
+        question: "What is the level of this feeling?",
+        options: levels
+      };
+    }
+  }
 };
 </script>
 
