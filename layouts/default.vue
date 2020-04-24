@@ -2,14 +2,14 @@
   <v-app>
     <!-- side navigation -->
     <v-navigation-drawer fixed v-model="drawer" right app>
-      <v-list>
+      <v-list dense>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title class="title">Grow your soul</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
-        <v-list-item>
+        <v-list-item @click>
           <v-list-item-action>
             <v-icon>{{ homeIcon }}</v-icon>
           </v-list-item-action>
@@ -17,7 +17,7 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click>
           <v-list-item-action>
             <v-icon>{{ profileIcon }}</v-icon>
           </v-list-item-action>
@@ -25,7 +25,7 @@
             <v-list-item-title>Your account</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click>
           <v-list-item-action>
             <v-icon>{{ settingIcon }}</v-icon>
           </v-list-item-action>
@@ -33,7 +33,7 @@
             <v-list-item-title>Setting</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click>
           <v-list-item-action>
             <v-icon>{{ themeIcon }}</v-icon>
           </v-list-item-action>
@@ -41,7 +41,7 @@
             <v-list-item-title>Change theme</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click>
           <v-list-item-action>
             <v-icon>{{ chartIcon }}</v-icon>
           </v-list-item-action>
@@ -49,7 +49,7 @@
             <v-list-item-title>Emotional analysis</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click>
           <v-list-item-action>
             <v-icon>{{ languageIcon }}</v-icon>
           </v-list-item-action>
@@ -57,7 +57,7 @@
             <v-list-item-title>Language</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click>
           <v-list-item-action>
             <v-icon>{{ infoIcon }}</v-icon>
           </v-list-item-action>
@@ -75,9 +75,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
     <v-content>
-      <v-container fluid fill-height>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
     <v-footer color="cyan" app>
       <v-spacer></v-spacer>
@@ -99,8 +97,7 @@ import {
 export default {
   data() {
     return {
-      drawer: false,
-      msg: "hello",
+      drawer: null,
       // icon list
       homeIcon: mdiHomeCircle,
       profileIcon: mdiAccountCircle,

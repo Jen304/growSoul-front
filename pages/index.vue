@@ -1,21 +1,10 @@
 <template>
-  <div>{{title}}</div>
+  <v-app>
+    <h1>Welcome to grow your soul</h1>
+  </v-app>
 </template>
-
 <script>
 export default {
-  beforeCreate() {
-    console.log("change");
-    this.$store.commit("page/title", "Home");
-  },
-  computed: {
-    title() {
-      console.log(this.$store.state.page.title);
-      return this.$store.state.page.title;
-      //return "trang";
-    }
-  },
-  methods: {}
+  layout: "plain"
 };
 </script>
-

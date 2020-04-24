@@ -6,9 +6,7 @@
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-content>
-      <v-container fluid fill-height>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
     <v-footer color="cyan" app>
       <v-spacer></v-spacer>
