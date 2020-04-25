@@ -7,12 +7,12 @@
           <v-list-item
             v-for="(option, i) in questionPackage.options"
             :key="i"
-            @click="$emit('customMethod', option.value)"
+            @click="$emit('customMethod',option.value)"
           >
             <v-list-item-avatar v-if="option.icon">
               <v-icon>{{ option.icon}}</v-icon>
             </v-list-item-avatar>
-            <v-list-item-content>{{option.value}}</v-list-item-content>
+            <v-list-item-content>{{option.text || option.value}}</v-list-item-content>
           </v-list-item>
         </v-list>
       </v-card>

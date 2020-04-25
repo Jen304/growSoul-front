@@ -24,11 +24,11 @@ const emotions = [
   { value: "disgust", icon: mdiEmoticonDead }
 ];
 const levels = [
-  { value: "Very high" },
-  { value: "High" },
-  { value: "Neural" },
-  { value: "low" },
-  { value: "Not a lot" }
+  { text: "Very high", value: 5 },
+  { text: "High", value: 4 },
+  { text: "Neural", value: 3 },
+  { text: "low", value: 2 },
+  { text: "Not a lot", value: 1 }
 ];
 export default {
   // set up the title of the page to layout
@@ -64,8 +64,10 @@ export default {
     // method for the second package
     // change the question package and hide the form
     submit(level) {
-      const emotion = this.emotion;
-      const newEmotion = { value: emotion, level };
+      const emotion = this.emotion.toLowerCase();
+      const time = Date.now();
+      const newEmotion = { value: emotion, level, time };
+
       this.$store.commit("emotion/add", newEmotion);
       //console.log(newEmotion);
       this.questionPackage = {

@@ -68,7 +68,7 @@
       </v-list>
     </v-navigation-drawer>
     <!-- Header -->
-    <v-app-bar color="cyan" fixed app>
+    <v-app-bar color="cyan" fixed app dark>
       <v-spacer></v-spacer>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
 
