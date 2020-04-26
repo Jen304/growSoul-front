@@ -5,13 +5,13 @@ const sampleEmotion = [
     { value: 'sad', leveel: 2, time: Date.now() - 1000 }
 ]
 export const state = () => ({
-    emotions: sampleEmotion
+    list: sampleEmotion
 })
 
 export const mutations = {
     add(state, newEmotion) {
-        state.emotions.push(newEmotion);
-        console.log(state.emotions);
+        state.list.push(newEmotion);
+
     },
 
 }

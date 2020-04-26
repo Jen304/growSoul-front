@@ -12,7 +12,10 @@
     "test": "jest"
   },
   "dependencies": {
-    "nuxt": "^2.0.0"
+    "moment": "^2.24.0",
+    "nuxt": "^2.0.0",
+    "vue-moment": "^4.1.0",
+    "vue-notifications": "^1.0.2"
   },
   "devDependencies": {
     "@mdi/font": "^5.1.45",

@@ -1,13 +1,13 @@
 <template>
-  <v-layout justify-center v-if="!questionPackage.hide">
-    <v-flex xs11 sm6 md3>
-      <v-card class="elevation-10">
-        <v-card-title>{{questionPackage.question}}</v-card-title>
+  <v-layout justify-center v-if="!questionPackage.hide" class="emotion-card">
+    <v-flex xs12 sm7 md6>
+      <v-card class="elevation-5">
+        <v-card-title>{{ questionPackage.question }}</v-card-title>
         <v-list class="option">
           <v-list-item
             v-for="(option, i) in questionPackage.options"
             :key="i"
-            @click="$emit('customMethod',option.value)"
+            @click="$emit('customMethod',option)"
           >
             <v-list-item-avatar v-if="option.icon">
               <v-icon>{{ option.icon}}</v-icon>
@@ -36,17 +36,16 @@ export default {
       // pair value and icon
     };
   },
-  props: ["questionPackage"],
-  methods: {
-    onClickElement() {
-      console.log(this.questionPackage);
-      this.$emit("customMethod", this.questionPackage.value);
-    }
-  }
+  props: ["questionPackage"]
 };
 </script>
 <style scoped>
 .option {
   text-transform: capitalize;
+}
+@media only screen and (max-width: 600px) {
+  .emotion-card {
+    width: 90%;
+  }
 }
 </style>
