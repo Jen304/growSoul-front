@@ -1,42 +1,59 @@
 <template>
-  <v-layout justify-center v-if="!questionPackage.hide" class="emotion-card">
-    <v-flex xs12 sm7 md6>
+  <v-layout justify-center class="emotion-card">
+    <v-flex xs12 sm5 md4>
       <v-card class="elevation-5">
-        <v-card-title>{{ questionPackage.question }}</v-card-title>
-        <v-list class="option">
-          <v-list-item
-            v-for="(option, i) in questionPackage.options"
-            :key="i"
-            @click="$emit('customMethod',option)"
-          >
-            <v-list-item-avatar v-if="option.icon">
-              <v-icon>{{ option.icon}}</v-icon>
-            </v-list-item-avatar>
-            <v-list-item-content>{{option.text || option.value}}</v-list-item-content>
-          </v-list-item>
-        </v-list>
+        <v-card-title>{{ question }}</v-card-title>
+        <v-card-subtitle></v-card-subtitle>
+        <v-container>
+          <v-layout justify-space-around>
+            <v-icon
+              v-for="(emotion, i) in emotionList"
+              :key="i"
+              x-large
+              @click="onEmotionClick(emotion.value)"
+            >{{ emotion.icon}}</v-icon>
+          </v-layout>
+        </v-container>
+
+        <v-card-text>
+          <v-text-field label="Write something about it" counter outlined v-model="story"></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" @click="onSubmit">Save</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>
 </template>
 <script>
-// import icon
-import {
-  mdiEmoticonKiss,
-  mdiEmoticonWink,
-  mdiEmoticonCry,
-  mdiEmoticonAngry,
-  mdiEmoticonSad,
-  mdiEmoticonDead
-} from "@mdi/js";
 export default {
   name: "emotion-form",
   data() {
     return {
-      // pair value and icon
+      question: "How are you now?",
+      emotion: null,
+      story: null,
+      // show error message if use does not chose emotion
+      error: false
     };
   },
-  props: ["questionPackage"]
+  computed: {
+    // return emotion list with icon from store
+    emotionList() {
+      return this.$store.getters["emotion/emotionListWithIcon"];
+    }
+  },
+  methods: {
+    onEmotionClick(emotion) {
+      this.emotion = emotion;
+      console.log(this.emotion);
+    },
+    onSubmit() {
+      console.log(this.story);
+    }
+  }
 };
 </script>
 <style scoped>

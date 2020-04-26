@@ -26,6 +26,7 @@ export default {
         labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [
           {
+            label: "one",
             backgroundColor: ["#f87979", "white"],
 
             data: [

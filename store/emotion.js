@@ -1,87 +1,55 @@
 import {
-    mdiEmoticonKiss,
-    mdiEmoticonWink,
-    mdiEmoticonCry,
-    mdiEmoticonAngry,
-    mdiEmoticonSad,
-    mdiEmoticonDead
+    mdiEmoticonKiss,// very good
+    mdiEmoticonExcited, // good
+    mdiEmoticonNeutral, // neural
+    mdiEmoticonCry,// bad
+    mdiEmoticonSad, // not so good
+
 } from "@mdi/js";
 
 const sampleEmotion = [
     { type: 'happy', level: "Very high", time: Date.now() - 100 },
     { type: 'suprise', level: "high", time: Date.now() - 200 },
     { type: 'suprise', level: "not a lot", time: Date.now() - 300 },
-    { type: 'sad', level: "neural", time: Date.now() - 1000 }
+    { type: 'happy', level: "neural", time: Date.now() - 1000 }
 ]
 /*
     Emotion Vuex module:
     State:
-        * list: list of emotions from user 
-        * type(String): list of emotion types, 6 elements
-        * level(String) with 5 elements
+        * list: list of user emotions 
+        * emotions(map) pair of emotion and emtion icon
 */
 export const state = () => ({
     list: sampleEmotion,
-    types: ["happy", "surprising", "sad", "fear", "anger", "disgust"],
-    levels: ["Very high", "high", "neural", "low", "not a lot"],
-    emotionIcon: {
-        happy: mdiEmoticonKiss,
-        surprising: mdiEmoticonWink,
-        sad: mdiEmoticonSad,
-        fear: mdiEmoticonCry,
-        anger: mdiEmoticonAngry,
-        disgust: mdiEmoticonDead
+    emotions: {
+        "very good": mdiEmoticonKiss,
+        "good": mdiEmoticonExcited,
+        "neural": mdiEmoticonNeutral,
+        "not so good": mdiEmoticonSad,
+        "bad": mdiEmoticonCry
     }
-})
-
+});
 export const mutations = {
     add(state, newEmotion) {
         state.list.push(newEmotion);
 
     },
-
-
 }
 export const getters = {
-    // return the emotion type list with icon (for display purpose)
+    // return the emotion list with icon (for display purpose)
     emotionListWithIcon(state) {
-        return state.types.map(type => {
-            return { value: type, icon: state.emotionIcon[type] }
-        })
-    },
-    //return the emotion level list with icon (for display purpose)
-    levelListWithIcon(state) {
-        return (emotionType) => {
-            return state.levels.map(level => {
-                return {
-                    value: level,
-                    icon: state.emotionIcon[emotionType]
-                }
-            });
+        let list = [];
+        for (let key in state.emotions) {
+            console.log(key);
+            list.push({ value: key, icon: state.emotions[key] });
         }
-
+        return list
     },
-    // convert level from string to integer
-    // level should be integer
-    levelString(state) {
-        return (level) => {
-            return state.levels[level - 1];
+    emotionList(state) {
+        const list = [];
+        for (let key in state.emotions) {
+            list.push(key)
         }
-
-    },
-    // convert level from integer to string
-    // level should be string
-    levelInt(state) {
-        return (level) => {
-            return state.levels.indexOf(level) + 1;
-        }
-    },
-    emotionIcon(state) {
-        return (emotion) => {
-            return state.emotionIcon[emotion]
-        }
+        return key;
     }
-
-
-
 }
