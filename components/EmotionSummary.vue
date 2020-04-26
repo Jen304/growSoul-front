@@ -6,9 +6,9 @@
       <v-list>
         <v-list-item v-for="(emotion, i) in lastEmotion" :key="i">
           <v-list-item-avatar>
-            <v-icon>{{ emotion.icon}}</v-icon>
+            <v-icon>{{ emotionIcon(emotion.type)}}</v-icon>
           </v-list-item-avatar>
-          <v-list-item-title>{{ emotion.value}}, {{emotion.level}}</v-list-item-title>
+          <v-list-item-title>{{ emotion.type}}, {{emotion.level}}</v-list-item-title>
           <v-list-item-subtitle>{{getTime()}}</v-list-item-subtitle>
         </v-list-item>
       </v-list>
@@ -27,6 +27,9 @@ export default {
   methods: {
     getTime(time) {
       return this.$moment(time).fromNow();
+    },
+    emotionIcon(emotion) {
+      return this.$store.getters["emotion/emotionIcon"](emotion);
     }
   }
 };

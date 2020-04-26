@@ -13,30 +13,7 @@ import EmotionForm from "../components/EmotionForm";
 import EmotionSummary from "../components/EmotionSummary";
 import StoryForm from "../components/StoryForm";
 import StoriesSummary from "../components/StoriesSummary";
-// import icon
-import {
-  mdiEmoticonKiss,
-  mdiEmoticonWink,
-  mdiEmoticonCry,
-  mdiEmoticonAngry,
-  mdiEmoticonSad,
-  mdiEmoticonDead
-} from "@mdi/js";
-const emotions = [
-  { value: "happy", icon: mdiEmoticonKiss },
-  { value: "surprising", icon: mdiEmoticonWink },
-  { value: "sad", icon: mdiEmoticonSad },
-  { value: "fear", icon: mdiEmoticonCry },
-  { value: "anger", icon: mdiEmoticonAngry },
-  { value: "disgust", icon: mdiEmoticonDead }
-];
-const levels = [
-  { value: "Very high", icon: null },
-  { value: "High", icon: null },
-  { value: "Neural", icon: null },
-  { value: "low", icon: null },
-  { value: "Not a lot", icon: null }
-];
+
 // helper function to add icon according to emotion
 const getLevels = function(emotionIcon) {
   for (let element of levels) {
@@ -57,7 +34,7 @@ export default {
       // first question package for emotion form
       questionPackage: {
         question: "How are you now?",
-        options: emotions,
+        options: this.$store.getters["emotion/emotionListWithIcon"],
         method: this.nextQuestionPackage
       }
     };
@@ -75,7 +52,7 @@ export default {
       this.emotion = emotion.value.toLowerCase();
       this.questionPackage = {
         question: "What is the level of this feeling?",
-        options: getLevels(emotion.icon),
+        options: this.$store.getters["emotion/levelListWithIcon"](this.emotion),
         method: this.submit
       };
     },
@@ -95,12 +72,11 @@ export default {
     },
     getNewEmotion(level) {
       const emotion = this.emotion.toLowerCase();
-      const time = Date.now();
+      const created_at = Date.now();
       const newEmotion = {
-        value: emotion,
+        type: emotion,
         level: level.value.toLowerCase(),
-        icon: level.icon,
-        time
+        created_at
       };
       return newEmotion;
     }
