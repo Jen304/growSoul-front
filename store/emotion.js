@@ -56,17 +56,15 @@ export const state = () => ({
 export const mutations = {
     submit(state, newEmotion) {
         let found = false;
-        for (let i = 0; i < state.list.length && !found; i++) {
-            //console.log(element.created_at);
-            //console.log(newEmotion.created_at);
-            if (state.list[i].created_at == newEmotion.created_at) {
-                state.list[i] = newEmotion;
+        const list = state.list;
+        for (let i = 0; i < list.length && !found; i++) {
+            if (list[i].created_at == newEmotion.created_at) {
+                list[i] = newEmotion;
                 found = true;
-
             }
         }
         if (!found) {
-            state.list.push(newEmotion);
+            list.push(newEmotion);
         }
         console.log(state.list);
     },
