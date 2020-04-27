@@ -109,13 +109,12 @@ export default {
     };
   },
   computed: {
+    // Each page should register the title or it will should defaut title
     title() {
       //console.log(this.$store.state.page.title);
       return this.$store.state.page.title;
       //return "trang";
     }
-  },
-
-  methods: {}
+  }
 };
 </script>

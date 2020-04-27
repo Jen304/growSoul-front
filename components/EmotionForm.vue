@@ -9,8 +9,9 @@
             <v-icon
               v-for="(emotion, i) in emotionList"
               :key="i"
-              x-large
+              :size="getSize(emotion.value)"
               @click="onEmotionClick(emotion.value)"
+              :color="getColor(emotion.value)"
             >{{ emotion.icon}}</v-icon>
           </v-layout>
         </v-container>
@@ -67,6 +68,18 @@ export default {
         this.$store.commit("emotion/add", this.newEmotion);
         //console.log(this.$store.state.emotion.list);
         this.$emit("hide-form");
+      }
+    },
+    // get color of emotion
+    getColor(emotion) {
+      return this.$store.state.emotion.emotionColors[emotion];
+    },
+    // set the size of icon larger if it is choosen
+    getSize(emotion) {
+      if (this.emotion == emotion) {
+        return 40;
+      } else {
+        return 35;
       }
     }
   }
