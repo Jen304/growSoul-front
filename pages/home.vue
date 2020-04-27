@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height>
-    <emotion-form v-if="!hideForm"></emotion-form>
+    <emotion-form v-if="!hideForm" @hide-form="hideForm = true"></emotion-form>
   </v-container>
 </template>
 
@@ -29,7 +29,6 @@ export default {
     "stories-summay": StoriesSummary
   },
   methods: {
-    hideForm(hide) {},
     getNewEmotion(emotion) {
       const created_at = Date.now();
       const newEmotion = {

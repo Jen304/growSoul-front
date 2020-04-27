@@ -3,7 +3,7 @@
     <v-flex xs12 sm5 md4>
       <v-card class="elevation-5">
         <v-card-title>{{ question }}</v-card-title>
-        <v-card-subtitle></v-card-subtitle>
+        <v-card-subtitle v-if="error">Please choose your emotion</v-card-subtitle>
         <v-container>
           <v-layout justify-space-around>
             <v-icon
@@ -43,6 +43,13 @@ export default {
     // return emotion list with icon from store
     emotionList() {
       return this.$store.getters["emotion/emotionListWithIcon"];
+    },
+    newEmotion() {
+      return {
+        emotion: this.emotion,
+        created_at: new Date(),
+        story: this.story
+      };
     }
   },
   methods: {
@@ -51,7 +58,16 @@ export default {
       console.log(this.emotion);
     },
     onSubmit() {
-      console.log(this.story);
+      const emotion = this.emotion;
+      // check the emtion value
+      if (emotion == null) {
+        console.log("error");
+        this.error = true;
+      } else {
+        this.$store.commit("emotion/add", this.newEmotion);
+        //console.log(this.$store.state.emotion.list);
+        this.$emit("hide-form");
+      }
     }
   }
 };
