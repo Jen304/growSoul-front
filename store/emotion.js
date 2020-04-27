@@ -54,9 +54,21 @@ export const state = () => ({
     }
 });
 export const mutations = {
-    add(state, newEmotion) {
-        state.list.push(newEmotion);
+    submit(state, newEmotion) {
+        let found = false;
+        for (let i = 0; i < state.list.length && !found; i++) {
+            //console.log(element.created_at);
+            //console.log(newEmotion.created_at);
+            if (state.list[i].created_at == newEmotion.created_at) {
+                state.list[i] = newEmotion;
+                found = true;
 
+            }
+        }
+        if (!found) {
+            state.list.push(newEmotion);
+        }
+        console.log(state.list);
     },
 }
 export const getters = {
@@ -85,8 +97,6 @@ export const getters = {
                 return emotion.created_at > start && emotion.created_at < end
             })
         }
-
-
     },
     fullEmotionListWithIcon(state) {
         let list = state.list.map(element => {
@@ -98,7 +108,6 @@ export const getters = {
         });
         list.sort((current, next) => next.created_at - current.created_at);
         return list;
-
     },
 
 

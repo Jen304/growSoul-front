@@ -63,7 +63,7 @@ export default {
         //console.log("error");
         this.error = true;
       } else {
-        this.$store.commit("emotion/add", this.newEmotion);
+        this.$store.commit("emotion/submit", this.newEmotion);
         //console.log(this.$store.state.emotion.list);
         this.$emit("hide-form");
       }
