@@ -1,13 +1,14 @@
 <template>
   <v-container fluid fill-height>
     <emotion-form v-if="!hideForm" @hide-form="hideForm = true"></emotion-form>
+    <emotion-history></emotion-history>
   </v-container>
 </template>
 
 <script>
 // import components
 import EmotionForm from "../components/EmotionForm";
-import EmotionSummary from "../components/EmotionSummary";
+import EmotionHistory from "../components/EmotionHistory";
 import StoryForm from "../components/StoryForm";
 import StoriesSummary from "../components/StoriesSummary";
 
@@ -24,7 +25,7 @@ export default {
   // register components for home page
   components: {
     "emotion-form": EmotionForm,
-    "emotion-summary": EmotionSummary,
+    "emotion-history": EmotionHistory,
     "story-form": StoryForm,
     "stories-summay": StoriesSummary
   },
