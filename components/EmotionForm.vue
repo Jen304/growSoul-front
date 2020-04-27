@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center class="emotion-card">
-    <v-flex xs12 sm8 md6>
+    <v-flex xs12 sm6 md4>
       <v-card class="elevation-5">
         <v-card-title>{{ question }}</v-card-title>
         <v-card-subtitle v-if="error">Please choose your emotion</v-card-subtitle>
