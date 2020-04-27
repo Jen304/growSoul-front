@@ -1,3 +1,4 @@
+// imort icon
 import {
     mdiEmoticonKiss,// very good
     mdiEmoticonExcited, // good
@@ -6,7 +7,8 @@ import {
     mdiEmoticonSad, // not so good
 
 } from "@mdi/js";
-
+// import color
+//import colors from 'vuetify/lib/util/colors'
 const sampleEmotion = [
     {
         emotion: "5", created_at: Date.now() - 100,
@@ -40,7 +42,13 @@ export const state = () => ({
         "3": "Neural",
         "2": "Not so good",
         "1": "Bad"
-
+    },
+    emotionColors: {
+        "5": "teal",
+        "4": "cyan",
+        "3": "blue",
+        "2": "indigo ",
+        "1": "purple"
     }
 });
 export const mutations = {
@@ -65,6 +73,18 @@ export const getters = {
             list.push(key)
         }
         return key;
+    },
+    // return a list of emotion according to that range time
+    emotionListWithinRangeTime(state) {
+        return ({ start, end }) => {
+            //console.log(start);
+
+            return state.list.filter(emotion => {
+                return emotion.created_at > start && emotion.created_at < end
+            })
+        }
+
+
     },
     fullEmotionListWithIcon(state) {
         let list = state.list.map(element => {
