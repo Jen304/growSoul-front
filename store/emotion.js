@@ -19,7 +19,9 @@ const sampleEmotion = [
         story: "venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin"
     },
     { emotion: "3", created_at: Date.now() - 300 },
-    { emotion: '2', created_at: Date.now() - 1000 }
+    { emotion: '2', created_at: Date.now() - 1000 },
+    { emotion: "3", created_at: Date.now() - 300000000000 },
+
 ]
 /*
     Emotion Vuex module:

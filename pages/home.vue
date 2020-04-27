@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
-    <emotion-form v-if="!hideForm" @hide-form="hideForm = true"></emotion-form>
-    <emotion-history v-if="hideForm"></emotion-history>
+    <emotion-form v-if="!hideForm" @hide-form="hideForm = true" :value="sampleEmotion"></emotion-form>
+    <emotion-history></emotion-history>
   </v-container>
 </template>
 
@@ -17,23 +17,18 @@ export default {
   },
   data() {
     return {
-      hideForm: false
+      hideForm: false,
+      sampleEmotion: {
+        emotion: "5",
+        story: "today is a good day",
+        created_at: new Date()
+      }
     };
   },
   // register components for home page
   components: {
     "emotion-form": EmotionForm,
     "emotion-history": EmotionHistory
-  },
-  methods: {
-    getNewEmotion(emotion) {
-      const created_at = Date.now();
-      const newEmotion = {
-        emotion,
-        created_at
-      };
-      return newEmotion;
-    }
   }
 };
 </script>

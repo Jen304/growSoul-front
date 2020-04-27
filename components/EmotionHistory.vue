@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs12 sm10 md9>
+    <v-flex xs12 sm10 md8>
       <p class="display-1">History</p>
       <v-divider></v-divider>
 

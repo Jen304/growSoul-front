@@ -1,9 +1,9 @@
 <template>
   <v-layout justify-center class="emotion-card">
-    <v-flex xs12 sm6 md4>
+    <v-flex xs12 sm11 md10>
       <v-card class="elevation-5">
         <v-card-title>{{ question }}</v-card-title>
-        <v-card-subtitle v-if="error">Please choose your emotion</v-card-subtitle>
+        <v-card-subtitle class="red--text" v-if="error">Please choose your emotion</v-card-subtitle>
         <v-container>
           <v-layout justify-space-around>
             <v-icon
@@ -36,6 +36,7 @@ export default {
       question: "How are you now?",
       emotion: null,
       story: null,
+      created_at: null,
       // show error message if use does not chose emotion
       error: false
     };
@@ -48,12 +49,13 @@ export default {
     newEmotion() {
       return {
         emotion: this.emotion,
-        created_at: new Date(),
+        created_at: this.created_at || new Date(),
         story: this.story
       };
     }
   },
   methods: {
+    // assign chosen emotion to emotion data
     onEmotionClick(emotion) {
       this.emotion = emotion;
       console.log(this.emotion);
@@ -62,7 +64,7 @@ export default {
       const emotion = this.emotion;
       // check the emtion value
       if (emotion == null) {
-        console.log("error");
+        //console.log("error");
         this.error = true;
       } else {
         this.$store.commit("emotion/add", this.newEmotion);
@@ -77,10 +79,28 @@ export default {
     // set the size of icon larger if it is choosen
     getSize(emotion) {
       if (this.emotion == emotion) {
-        return 40;
+        return 45;
       } else {
-        return 35;
+        return 40;
       }
+    }
+  },
+  props: {
+    // value must have props: emotion, story and created_at
+    value: {
+      type: Object,
+      default: null
+    }
+  },
+  mounted() {
+    // assign values from props to components datas if prop is assigned
+    console.log(this.value);
+    if (this.value) {
+      console.log("mounted");
+      const editedEmotion = this.value;
+      this.emotion = editedEmotion.emotion;
+      this.story = editedEmotion.story;
+      this.created_at = editedEmotion.created_at;
     }
   }
 };
