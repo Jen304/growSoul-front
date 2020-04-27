@@ -1,6 +1,11 @@
 <template>
   <v-container fluid fill-height>
-    <emotion-form v-if="!hideForm" @hide-form="hideForm = true" :value="sampleEmotion"></emotion-form>
+    <v-layout justify-center class="emotion-card" v-if="!hideForm">
+      <v-flex xs12 sm11 md10>
+        <emotion-form @hide-form="hideForm = true"></emotion-form>
+      </v-flex>
+    </v-layout>
+
     <emotion-history></emotion-history>
   </v-container>
 </template>
@@ -17,12 +22,7 @@ export default {
   },
   data() {
     return {
-      hideForm: false,
-      sampleEmotion: {
-        emotion: "5",
-        story: "today is a good day",
-        created_at: new Date()
-      }
+      hideForm: false
     };
   },
   // register components for home page
@@ -32,4 +32,11 @@ export default {
   }
 };
 </script>
+<style scoped>
+@media only screen and (max-width: 600px) {
+  .emotion-card {
+    width: 90%;
+  }
+}
+</style>
 

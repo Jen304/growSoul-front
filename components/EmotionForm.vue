@@ -1,32 +1,28 @@
 <template>
-  <v-layout justify-center class="emotion-card">
-    <v-flex xs12 sm11 md10>
-      <v-card class="elevation-5">
-        <v-card-title>{{ question }}</v-card-title>
-        <v-card-subtitle class="red--text" v-if="error">Please choose your emotion</v-card-subtitle>
-        <v-container>
-          <v-layout justify-space-around>
-            <v-icon
-              v-for="(emotion, i) in emotionList"
-              :key="i"
-              :size="getSize(emotion.value)"
-              @click="onEmotionClick(emotion.value)"
-              :color="getColor(emotion.value)"
-            >{{ emotion.icon}}</v-icon>
-          </v-layout>
-        </v-container>
+  <v-card class="elevation-5">
+    <v-card-title>{{ question }}</v-card-title>
+    <v-card-subtitle class="red--text" v-if="error">Please choose your emotion</v-card-subtitle>
+    <v-container>
+      <v-layout justify-space-around>
+        <v-icon
+          v-for="(emotion, i) in emotionList"
+          :key="i"
+          :size="getSize(emotion.value)"
+          @click="onEmotionClick(emotion.value)"
+          :color="getColor(emotion.value)"
+        >{{ emotion.icon}}</v-icon>
+      </v-layout>
+    </v-container>
 
-        <v-card-text>
-          <v-text-field label="Write something about it" counter outlined v-model="story"></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" @click="onSubmit">Save</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+    <v-card-text>
+      <v-text-field label="Write something about it" counter outlined v-model="story"></v-text-field>
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="primary" @click="onSubmit">Save</v-btn>
+      <v-spacer></v-spacer>
+    </v-card-actions>
+  </v-card>
 </template>
 <script>
 export default {
@@ -94,7 +90,7 @@ export default {
   },
   mounted() {
     // assign values from props to components datas if prop is assigned
-    console.log(this.value);
+    //console.log(this.value);
     if (this.value) {
       console.log("mounted");
       const editedEmotion = this.value;
@@ -105,13 +101,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-.option {
-  text-transform: capitalize;
-}
-@media only screen and (max-width: 600px) {
-  .emotion-card {
-    width: 90%;
-  }
-}
-</style>

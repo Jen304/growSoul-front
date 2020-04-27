@@ -59,7 +59,7 @@
               <v-toolbar :color="selectedEvent.color" dark>
                 <v-toolbar-title>{{ selectedEvent.name }}</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn icon>
+                <v-btn icon @click.stop="openDialog">
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
               </v-toolbar>
@@ -72,11 +72,19 @@
           </v-menu>
         </v-sheet>
       </v-col>
+      <v-dialog v-model="dialog" max-width="350">
+        <emotion-form @hide-form="dialog = false" :value="selectedEvent"></emotion-form>
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
 <script>
+import EmotionForm from "../components/EmotionForm";
 export default {
+  components: {
+    "emotion-form": EmotionForm
+  },
+
   data: () => ({
     focus: "",
     today: null,
@@ -92,7 +100,8 @@ export default {
     selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
-    events: []
+    events: [],
+    dialog: false
   }),
   computed: {
     // return the title of the calendar
@@ -179,7 +188,6 @@ export default {
       nativeEvent.stopPropagation();
     },
     // need to be changed
-
     updateEmotion({ start, end }) {
       let emotionList = [];
       const min = new Date(`${start.date}T00:00:00`);
@@ -194,13 +202,15 @@ export default {
       for (let emotion of emotionList) {
         event.push({
           name: this.$store.state.emotion.emotionString[emotion.emotion],
+          emotion: emotion.emotion,
           start: this.formatDate(new Date(emotion.created_at)),
           end: this.formatDate(new Date(emotion.created_at + 1000)),
           color: this.$store.state.emotion.emotionColors[emotion.emotion],
-          story: emotion.story
+          story: emotion.story,
+          created_at: emotion.created_at
         });
       }
-      console.log(event);
+      //console.log(event);
       this.events = event;
       this.start = start;
       this.end = end;
@@ -210,10 +220,14 @@ export default {
         ? "th"
         : ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"][d % 10];
     },
-
     formatDate(a) {
       return `${a.getFullYear()}-${a.getMonth() +
         1}-${a.getDate()} ${a.getHours()}:${a.getMinutes()}`;
+    },
+    openDialog() {
+      console.log(this.selectedEvent);
+
+      this.dialog = true;
     }
   }
 };
