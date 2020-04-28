@@ -9,22 +9,23 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
-        <v-list-item @click>
+        <v-list-item to="/home">
           <v-list-item-action>
-            <v-icon>{{ homeIcon }}</v-icon>
+            <v-icon>mdi-home-circle</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click>
+        <v-list-item to="/calendar">
           <v-list-item-action>
-            <v-icon>{{ profileIcon }}</v-icon>
+            <v-icon>mdi-calendar-heart</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Your account</v-list-item-title>
+            <v-list-item-title>Calendar</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <!--
         <v-list-item @click>
           <v-list-item-action>
             <v-icon>{{ settingIcon }}</v-icon>
@@ -65,6 +66,7 @@
             <v-list-item-title>About us</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        -->
       </v-list>
     </v-navigation-drawer>
     <!-- Header -->
@@ -85,27 +87,12 @@
 </template>
 <script>
 // import icon
-import {
-  mdiHomeCircle,
-  mdiAccountCircle,
-  mdiCogs,
-  mdiPalette,
-  mdiChartTimelineVariant,
-  mdiTranslate,
-  mdiInformationOutline
-} from "@mdi/js";
+
 export default {
   data() {
     return {
-      drawer: null,
+      drawer: null
       // icon list
-      homeIcon: mdiHomeCircle,
-      profileIcon: mdiAccountCircle,
-      settingIcon: mdiCogs,
-      themeIcon: mdiPalette,
-      chartIcon: mdiChartTimelineVariant,
-      languageIcon: mdiTranslate,
-      infoIcon: mdiInformationOutline
     };
   },
   computed: {
