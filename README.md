@@ -1,9 +1,15 @@
 # Grow your soul
 
-> A tracking emotion project
-## Tools
-* [Nuxt.js]()
-* [Vuetify]() 
+> Tracking emotion project
+## Features
+* Create new emotion (5 levels) with story with it.
+* Show the history of user emotion
+* Edit the past emotion
+* Emotion calendar
+## Built with
+* [Nuxt.js](https://nuxtjs.org/)
+* [Vuetify](https://vuetifyjs.com/) 
+* [Vue-moment](https://www.npmjs.com/package/vue-moment)
 ## Build Setup
 
 ```bash
@@ -19,6 +25,8 @@ $ npm run start
 
 # generate static project
 $ npm run generate
-```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+```
+## Author
+> [Jen](https://github.com/Jen304)
+
