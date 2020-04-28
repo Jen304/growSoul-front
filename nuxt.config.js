@@ -2,6 +2,9 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   mode: 'spa',
+  router: {
+    base: '/growSouldDemo/'
+  },
   /*
   ** Headers of the page
   */
@@ -74,6 +77,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
+
     extend(config, ctx) {
     }
   }
