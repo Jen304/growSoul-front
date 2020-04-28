@@ -1,4 +1,4 @@
-<template>
+<template >
   <v-container>
     <v-row class="fill-height">
       <v-col>
@@ -47,6 +47,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateEmotion"
+            :key="reload"
           ></v-calendar>
           <v-menu
             v-model="selectedOpen"
@@ -73,7 +74,7 @@
         </v-sheet>
       </v-col>
       <v-dialog v-model="dialog" max-width="350">
-        <emotion-form @hide-form="dialog = false" :value="selectedEvent" :key="emotionKey"></emotion-form>
+        <emotion-form @hide-form="reloadCalendar" :value="selectedEvent" :key="emotionKey"></emotion-form>
       </v-dialog>
     </v-row>
   </v-container>
@@ -105,7 +106,8 @@ export default {
     selectedOpen: false,
     events: [],
     dialog: false,
-    emotionKey: 0
+    emotionKey: 0,
+    reload: 0
   }),
   computed: {
     // return the title of the calendar
@@ -233,6 +235,11 @@ export default {
       // assign new key to force re-render
       this.emotionKey = this.selectedEvent.created_at;
       this.dialog = true;
+    },
+    reloadCalendar() {
+      this.dialog = false;
+      //console.log("reload");
+      this.reload++;
     }
   }
 };
