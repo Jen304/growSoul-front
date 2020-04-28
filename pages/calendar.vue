@@ -73,7 +73,7 @@
         </v-sheet>
       </v-col>
       <v-dialog v-model="dialog" max-width="350">
-        <emotion-form @hide-form="dialog = false" :value="selectedEvent"></emotion-form>
+        <emotion-form @hide-form="dialog = false" :value="selectedEvent" :key="emotionKey"></emotion-form>
       </v-dialog>
     </v-row>
   </v-container>
@@ -101,7 +101,8 @@ export default {
     selectedElement: null,
     selectedOpen: false,
     events: [],
-    dialog: false
+    dialog: false,
+    emotionKey: 0
   }),
   computed: {
     // return the title of the calendar
@@ -225,8 +226,8 @@ export default {
         1}-${a.getDate()} ${a.getHours()}:${a.getMinutes()}`;
     },
     openDialog() {
-      console.log(this.selectedEvent);
-
+      //console.log(this.selectedEvent);
+      this.emotionKey = this.selectedEvent.created_at;
       this.dialog = true;
     }
   }

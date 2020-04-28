@@ -21,7 +21,7 @@
       </v-card>
     </v-flex>
     <v-dialog v-model="dialog" max-width="350">
-      <emotion-form @hide-form="dialog = false" :value="selectedEmotion"></emotion-form>
+      <emotion-form @hide-form="dialog = false" :value="selectedEmotion" :key="emotionKey"></emotion-form>
     </v-dialog>
   </v-layout>
 </template>
@@ -35,7 +35,8 @@ export default {
   data() {
     return {
       dialog: false,
-      selectedEmotion: null
+      selectedEmotion: null,
+      emotionKey: 0
     };
   },
   computed: {
@@ -49,8 +50,19 @@ export default {
       return this.$moment(time).fromNow();
     },
     openDialog(emotion) {
-      this.selectedEmotion = emotion;
-      this.dialog = true;
+      console.log(this.selectedEmotion);
+      const open = () => {
+        this.selectedEmotion = emotion;
+        this.emotionKey = emotion.created_at;
+        this.dialog = true;
+        setTimeout(() => (this.dialog = true), 10);
+      };
+      if (this.dialog) {
+        this.dialog = false;
+        setTimeout(open, 10);
+      } else {
+        open();
+      }
     }
   }
 };

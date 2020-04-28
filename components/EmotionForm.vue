@@ -87,7 +87,8 @@ export default {
   },
   mounted() {
     // assign values from props to components datas if prop is assigned
-    //console.log(this.value);
+    console.log(this.value);
+
     if (this.value) {
       console.log("mounted");
       const editedEmotion = this.value;
@@ -95,6 +96,9 @@ export default {
       this.story = editedEmotion.story;
       this.created_at = editedEmotion.created_at;
     }
+  },
+  beforeUpdate() {
+    console.log(this.value);
   }
 };
 </script>
