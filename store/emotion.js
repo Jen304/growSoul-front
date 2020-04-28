@@ -7,30 +7,43 @@ import {
     mdiEmoticonSad, // not so good
 
 } from "@mdi/js";
-// import color
-//import colors from 'vuetify/lib/util/colors'
-const sampleEmotion = [
-    {
-        emotion: "5", created_at: Date.now() - 100,
-        story: "facilisis sed odio morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum posuere"
-    },
-    {
-        emotion: "4", created_at: Date.now() - 200,
-        story: "venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin"
-    },
-    { emotion: "3", created_at: Date.now() - 300 },
-    { emotion: '2', created_at: Date.now() - 1000 },
-    { emotion: "3", created_at: Date.now() - 300000000000 },
+import { getData, setData } from 'nuxt-storage/local-storage';
 
-]
 /*
     Emotion Vuex module:
     State:
         * list: list of user emotions 
-        * emotions(map) pair of emotion and emtion icon
+        * emotions(map) pair of emotion and emtion icon, string, color
 */
+// keyName is used to access emotion list from localStorage
+const keyName = 'emotionList';
+// get emotion list from localstorage
+const getEmotionStorage = () => {
+    let list = [];
+    // check whether the browser support localStorage
+    if (typeof (Storage) !== "undefined") {
+        list = JSON.parse(getData(keyName)) || [];
+        return list.map(element => {
+            // convert from string to Date type
+            let time = new Date(element.created_at);
+            //console.log(time)
+            return { ...element, created_at: time }
+        })
+    } else {
+        console.log("your browser does not support local storage");
+    }
+
+}
+const save = (list) => {
+    // check whether the browser support localStorage
+    if (typeof (Storage) !== "undefined") {
+        setData(keyName, JSON.stringify(list));
+    }
+    else { console.log("your browser does not support local storage"); }
+}
 export const state = () => ({
-    list: sampleEmotion,
+    // init emotion list
+    list: getEmotionStorage(),
     emotionIcons: {
         "5": mdiEmoticonKiss,
         "4": mdiEmoticonExcited,
@@ -53,10 +66,13 @@ export const state = () => ({
         "1": "purple"
     }
 });
+
 export const mutations = {
     submit(state, newEmotion) {
         let found = false;
         const list = state.list;
+        // search the emotion according to timestamp (in case of editing)
+        // need to refactor, reduce the loop
         for (let i = 0; i < list.length && !found; i++) {
             if (list[i].created_at == newEmotion.created_at) {
                 list[i] = newEmotion;
@@ -64,20 +80,23 @@ export const mutations = {
             }
         }
         if (!found) {
-            list.push(newEmotion);
+            list.unshift(newEmotion);
         }
-        console.log(state.list);
+        // save the list to localStorage
+        save(list);
+
     },
+
+
 }
 export const getters = {
     // return the emotion list with icon (for display purpose)
     emotionList(state) {
         let list = [];
         for (let key in state.emotionIcons) {
-            //console.log(key);
             list.push(parseInt(key));
         }
-        return list
+        return list;
     },
 
     // return a list of emotion according to that range time
@@ -88,11 +107,4 @@ export const getters = {
             })
         }
     },
-
-
-
-
-
-
-
 }

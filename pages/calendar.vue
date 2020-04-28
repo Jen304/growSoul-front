@@ -81,6 +81,9 @@
 <script>
 import EmotionForm from "../components/EmotionForm";
 export default {
+  beforeCreate() {
+    this.$store.commit("page/title", "Calendar");
+  },
   components: {
     "emotion-form": EmotionForm
   },
@@ -227,6 +230,7 @@ export default {
     },
     openDialog() {
       //console.log(this.selectedEvent);
+      // assign new key to force re-render
       this.emotionKey = this.selectedEvent.created_at;
       this.dialog = true;
     }

@@ -15,6 +15,7 @@
     "chart.js": "^2.9.3",
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
+    "nuxt-storage": "^1.2.2",
     "vue-chartjs": "^3.5.0",
     "vue-moment": "^4.1.0",
     "vue-notifications": "^1.0.2"

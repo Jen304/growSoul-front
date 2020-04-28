@@ -42,13 +42,6 @@ export default {
     // return emotion list with icon from store
     emotionList() {
       return this.$store.getters["emotion/emotionList"];
-    },
-    newEmotion() {
-      return {
-        emotion: this.emotion,
-        created_at: this.created_at || new Date(),
-        story: this.story
-      };
     }
   },
   methods: {
@@ -64,7 +57,7 @@ export default {
         //console.log("error");
         this.error = true;
       } else {
-        this.$store.commit("emotion/submit", this.newEmotion);
+        this.$store.commit("emotion/submit", this.newEmotion());
         //console.log(this.$store.state.emotion.list);
         this.$emit("hide-form");
       }
@@ -76,6 +69,14 @@ export default {
       } else {
         return 40;
       }
+    },
+    // helper method: return the new emotion
+    newEmotion() {
+      return {
+        emotion: this.emotion,
+        created_at: this.created_at || new Date(),
+        story: this.story
+      };
     }
   },
   props: {
@@ -87,18 +88,12 @@ export default {
   },
   mounted() {
     // assign values from props to components datas if prop is assigned
-    console.log(this.value);
-
     if (this.value) {
-      console.log("mounted");
       const editedEmotion = this.value;
       this.emotion = editedEmotion.emotion;
       this.story = editedEmotion.story;
       this.created_at = editedEmotion.created_at;
     }
-  },
-  beforeUpdate() {
-    console.log(this.value);
   }
 };
 </script>

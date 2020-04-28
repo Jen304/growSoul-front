@@ -32,7 +32,8 @@ export default {
   plugins: [
     '~/plugins/vue-moment',
     '~/plugins/vue-notifications',
-    "~/plugins/mixins.js"
+    "~/plugins/mixins.js",
+    { ssr: false, src: '~plugins/store' }
   ],
   /*
   ** Nuxt.js dev-modules

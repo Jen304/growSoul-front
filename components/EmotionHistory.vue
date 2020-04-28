@@ -1,7 +1,16 @@
 <template>
   <v-layout justify-center>
     <v-flex xs12 sm10 md8>
-      <p class="display-1">History</p>
+      <div class="display-1">
+        <v-layout>
+          <p>History</p>
+          <v-spacer></v-spacer>
+          <v-btn to="/calendar">
+            <v-icon>mdi-calendar-heart</v-icon>
+          </v-btn>
+        </v-layout>
+      </div>
+
       <v-divider></v-divider>
       <v-card outlined v-for="(emotion, i) in lastEmotion" :key="i">
         <v-card-title>
@@ -29,11 +38,13 @@
 import EmotionFormVue from "./EmotionForm.vue";
 export default {
   name: "emotion-history",
+  // form to edit emotion
   components: {
     "emotion-form": EmotionFormVue
   },
   data() {
     return {
+      //  to open or close dialog
       dialog: false,
       selectedEmotion: null,
       emotionKey: 0
@@ -41,21 +52,23 @@ export default {
   },
   computed: {
     lastEmotion() {
-      //console.log(this.$store.getters["emotion/fullEmotionListWithIcon"]);
       return this.$store.state.emotion.list;
     }
   },
   methods: {
+    // return the interval from now
     getTime(time) {
       return this.$moment(time).fromNow();
     },
+    // open the dialog to allow edit emotion
+    // assign the selectedEmotion
     openDialog(emotion) {
-      console.log(this.selectedEmotion);
+      //console.log(this.selectedEmotion);
       const open = () => {
         this.selectedEmotion = emotion;
+        // assign new key to force re-render
         this.emotionKey = emotion.created_at;
         this.dialog = true;
-        setTimeout(() => (this.dialog = true), 10);
       };
       if (this.dialog) {
         this.dialog = false;
