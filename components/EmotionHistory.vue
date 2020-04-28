@@ -6,8 +6,12 @@
 
       <v-card outlined v-for="(emotion, i) in lastEmotion" :key="i">
         <v-card-title>
-          <v-icon large class="mr-2">{{ emotion.icon}}</v-icon>
-          {{ emotion.emotion}}
+          <v-icon
+            large
+            class="mr-2"
+            :color="getEmotionColor(emotion.value)"
+          >{{ getEmotionIcon(emotion.value)}}</v-icon>
+          {{ getEmotionString(emotion.value)}}
         </v-card-title>
         <v-card-subtitle>{{getTime()}}</v-card-subtitle>
         <v-card-text>{{ emotion.story}}</v-card-text>
@@ -20,7 +24,7 @@ export default {
   name: "emotion-history",
   computed: {
     lastEmotion() {
-      console.log(this.$store.getters["emotion/fullEmotionListWithIcon"]);
+      //console.log(this.$store.getters["emotion/fullEmotionListWithIcon"]);
       return this.$store.getters["emotion/fullEmotionListWithIcon"];
     }
   },

@@ -9,8 +9,8 @@
           :key="i"
           :size="getSize(emotion.value)"
           @click="onEmotionClick(emotion.value)"
-          :color="getColor(emotion.value)"
-        >{{ emotion.icon}}</v-icon>
+          :color="getEmotionColor(emotion.value)"
+        >{{ getEmotionIcon(emotion.value)}}</v-icon>
       </v-layout>
     </v-container>
 
@@ -27,6 +27,7 @@
 <script>
 export default {
   name: "emotion-form",
+
   data() {
     return {
       question: "How are you now?",
@@ -67,10 +68,6 @@ export default {
         //console.log(this.$store.state.emotion.list);
         this.$emit("hide-form");
       }
-    },
-    // get color of emotion
-    getColor(emotion) {
-      return this.$store.state.emotion.emotionColors[emotion];
     },
     // set the size of icon larger if it is choosen
     getSize(emotion) {

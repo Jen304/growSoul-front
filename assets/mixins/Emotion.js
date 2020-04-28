@@ -1,6 +1,6 @@
 export default {
     methods: {
-        getColor(emotion) {
+        getEmotionColor(emotion) {
             return this.$store.state.emotion.emotionColors[emotion];
         },
         getEmotionString(emotion) {

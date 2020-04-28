@@ -89,8 +89,6 @@ export const getters = {
     // return a list of emotion according to that range time
     emotionListWithinRangeTime(state) {
         return ({ start, end }) => {
-            //console.log(start);
-
             return state.list.filter(emotion => {
                 return emotion.created_at > start && emotion.created_at < end
             })
@@ -99,6 +97,7 @@ export const getters = {
     fullEmotionListWithIcon(state) {
         let list = state.list.map(element => {
             return {
+                value: element.emotion,
                 emotion: state.emotionString[element.emotion],
                 story: element.story, created_at: element.created_at,
                 icon: state.emotionIcons[element.emotion]

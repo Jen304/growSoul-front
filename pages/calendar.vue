@@ -201,11 +201,11 @@ export default {
 
       for (let emotion of emotionList) {
         event.push({
-          name: this.$store.state.emotion.emotionString[emotion.emotion],
+          name: this.getEmotionString(emotion.emotion), //this.$store.state.emotion.emotionString[emotion.emotion],
           emotion: emotion.emotion,
           start: this.formatDate(new Date(emotion.created_at)),
           end: this.formatDate(new Date(emotion.created_at + 1000)),
-          color: this.$store.state.emotion.emotionColors[emotion.emotion],
+          color: this.getEmotionColor(emotion.emotion), //this.$store.state.emotion.emotionColors[emotion.emotion],
           story: emotion.story,
           created_at: emotion.created_at
         });
