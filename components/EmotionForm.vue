@@ -72,7 +72,7 @@ export default {
     // set the size of icon larger if it is choosen
     getSize(emotion) {
       if (this.emotion == emotion) {
-        return 45;
+        return 50;
       } else {
         return 40;
       }
