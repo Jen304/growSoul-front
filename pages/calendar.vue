@@ -57,14 +57,14 @@
           >
             <!-- card -->
             <v-card color="grey lighten-4" flat>
-              <v-toolbar :color="selectedEvent.color" dark>
-                <v-toolbar-title>{{ selectedEvent.name }}</v-toolbar-title>
+              <v-toolbar :color="selectedEmotion.color" dark>
+                <v-toolbar-title>{{ selectedEmotion.name }}</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn icon @click.stop="openDialog">
+                <v-btn icon @click.stop="openDialog(selectedEmotion)">
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
               </v-toolbar>
-              <v-card-text>{{selectedEvent.story}}</v-card-text>
+              <v-card-text>{{selectedEmotion.story}}</v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
@@ -74,13 +74,14 @@
         </v-sheet>
       </v-col>
       <v-dialog v-model="dialog" max-width="350">
-        <emotion-form @hide-form="reloadCalendar" :value="selectedEvent" :key="emotionKey"></emotion-form>
+        <emotion-form @hide-form="reloadCalendar" :value="selectedEmotion" :key="emotionKey"></emotion-form>
       </v-dialog>
     </v-row>
   </v-container>
 </template>
 <script>
 import EmotionForm from "../components/EmotionForm";
+import Dialog from "../assets/mixins/Dialog";
 export default {
   beforeCreate() {
     this.$store.commit("page/title", "Calendar");
@@ -88,6 +89,7 @@ export default {
   components: {
     "emotion-form": EmotionForm
   },
+  mixins: [Dialog],
 
   data: () => ({
     focus: "",
@@ -101,12 +103,9 @@ export default {
     },
     start: null,
     end: null,
-    selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
     events: [],
-    dialog: false,
-    emotionKey: 0,
     reload: 0
   }),
   computed: {
@@ -180,7 +179,7 @@ export default {
       const open = () => {
         //console.log(event);
         //console.log(nativeEvent);
-        this.selectedEvent = event;
+        this.selectedEmotion = event;
         this.selectedElement = nativeEvent.target;
         setTimeout(() => (this.selectedOpen = true), 10);
       };
@@ -230,12 +229,7 @@ export default {
       return `${a.getFullYear()}-${a.getMonth() +
         1}-${a.getDate()} ${a.getHours()}:${a.getMinutes()}`;
     },
-    openDialog() {
-      //console.log(this.selectedEvent);
-      // assign new key to force re-render
-      this.emotionKey = this.selectedEvent.created_at;
-      this.dialog = true;
-    },
+
     reloadCalendar() {
       this.dialog = false;
       //console.log("reload");

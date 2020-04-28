@@ -36,20 +36,15 @@
 </template>
 <script>
 import EmotionFormVue from "./EmotionForm.vue";
+import Dialog from "../assets/mixins/Dialog";
 export default {
   name: "emotion-history",
   // form to edit emotion
   components: {
     "emotion-form": EmotionFormVue
   },
-  data() {
-    return {
-      //  to open or close dialog
-      dialog: false,
-      selectedEmotion: null,
-      emotionKey: 0
-    };
-  },
+  mixins: [Dialog],
+
   computed: {
     lastEmotion() {
       return this.$store.state.emotion.list;
@@ -59,23 +54,6 @@ export default {
     // return the interval from now
     getTime(time) {
       return this.$moment(time).fromNow();
-    },
-    // open the dialog to allow edit emotion
-    // assign the selectedEmotion
-    openDialog(emotion) {
-      //console.log(this.selectedEmotion);
-      const open = () => {
-        this.selectedEmotion = emotion;
-        // assign new key to force re-render
-        this.emotionKey = emotion.created_at;
-        this.dialog = true;
-      };
-      if (this.dialog) {
-        this.dialog = false;
-        setTimeout(open, 10);
-      } else {
-        open();
-      }
     }
   }
 };
