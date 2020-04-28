@@ -71,21 +71,15 @@ export const mutations = {
 }
 export const getters = {
     // return the emotion list with icon (for display purpose)
-    emotionListWithIcon(state) {
+    emotionList(state) {
         let list = [];
         for (let key in state.emotionIcons) {
             //console.log(key);
-            list.push({ value: parseInt(key), icon: state.emotionIcons[key] });
+            list.push(parseInt(key));
         }
         return list
     },
-    emotionList(state) {
-        const list = [];
-        for (let key in state.emotionIcons) {
-            list.push(key)
-        }
-        return key;
-    },
+
     // return a list of emotion according to that range time
     emotionListWithinRangeTime(state) {
         return ({ start, end }) => {
@@ -94,18 +88,7 @@ export const getters = {
             })
         }
     },
-    fullEmotionListWithIcon(state) {
-        let list = state.list.map(element => {
-            return {
-                value: element.emotion,
-                emotion: state.emotionString[element.emotion],
-                story: element.story, created_at: element.created_at,
-                icon: state.emotionIcons[element.emotion]
-            }
-        });
-        list.sort((current, next) => next.created_at - current.created_at);
-        return list;
-    },
+
 
 
 

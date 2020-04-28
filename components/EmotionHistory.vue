@@ -9,9 +9,9 @@
           <v-icon
             large
             class="mr-2"
-            :color="getEmotionColor(emotion.value)"
-          >{{ getEmotionIcon(emotion.value)}}</v-icon>
-          {{ getEmotionString(emotion.value)}}
+            :color="getEmotionColor(emotion.emotion)"
+          >{{ getEmotionIcon(emotion.emotion)}}</v-icon>
+          {{ getEmotionString(emotion.emotion)}}
         </v-card-title>
         <v-card-subtitle>{{getTime()}}</v-card-subtitle>
         <v-card-text>{{ emotion.story}}</v-card-text>
@@ -25,7 +25,7 @@ export default {
   computed: {
     lastEmotion() {
       //console.log(this.$store.getters["emotion/fullEmotionListWithIcon"]);
-      return this.$store.getters["emotion/fullEmotionListWithIcon"];
+      return this.$store.state.emotion.list;
     }
   },
   methods: {

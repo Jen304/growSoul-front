@@ -1,11 +1,10 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout justify-center class="emotion-card" v-if="!hideForm">
-      <v-flex xs12 sm11 md10>
+  <v-container fluid full-height>
+    <v-layout justify-center class="emotion-card" v-if="!hideForm" ma-5>
+      <v-flex xs11 sm6 md3>
         <emotion-form @hide-form="hideForm = true"></emotion-form>
       </v-flex>
     </v-layout>
-
     <emotion-history></emotion-history>
   </v-container>
 </template>

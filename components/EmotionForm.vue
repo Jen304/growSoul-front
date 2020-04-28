@@ -7,10 +7,10 @@
         <v-icon
           v-for="(emotion, i) in emotionList"
           :key="i"
-          :size="getSize(emotion.value)"
-          @click="onEmotionClick(emotion.value)"
-          :color="getEmotionColor(emotion.value)"
-        >{{ getEmotionIcon(emotion.value)}}</v-icon>
+          :size="getSize(emotion)"
+          @click="onEmotionClick(emotion)"
+          :color="getEmotionColor(emotion)"
+        >{{ getEmotionIcon(emotion)}}</v-icon>
       </v-layout>
     </v-container>
 
@@ -41,7 +41,7 @@ export default {
   computed: {
     // return emotion list with icon from store
     emotionList() {
-      return this.$store.getters["emotion/emotionListWithIcon"];
+      return this.$store.getters["emotion/emotionList"];
     },
     newEmotion() {
       return {
