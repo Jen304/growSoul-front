@@ -150,7 +150,7 @@ export default {
   mounted() {
     //console.log(this.$store.state.emotion.emotionColors);
     // call updateEmotion function (@change="updateEmotion")
-    this.$refs.calendar.checkChange();
+    this.$refs.calendar.checkChange({ start: this.start, end: this.end });
   },
   methods: {
     // show selected day info
@@ -192,7 +192,6 @@ export default {
       }
       nativeEvent.stopPropagation();
     },
-    // need to be changed
     updateEmotion({ start, end }) {
       let emotionList = [];
       const min = new Date(`${start.date}T00:00:00`);
@@ -229,7 +228,7 @@ export default {
       return `${a.getFullYear()}-${a.getMonth() +
         1}-${a.getDate()} ${a.getHours()}:${a.getMinutes()}`;
     },
-
+    // re load the calendar after edit emotion
     reloadCalendar() {
       this.dialog = false;
       //console.log("reload");
