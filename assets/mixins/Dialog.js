@@ -1,3 +1,5 @@
+// Dialog mixins: use for open and close the dialog (emotion form) to edit emotion
+// Local dialog: only available to some components
 export default {
     data() {
         return {

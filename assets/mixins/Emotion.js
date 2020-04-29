@@ -1,3 +1,5 @@
+// Emotion Mixin: to get color, string and icon according to emotion value
+// available globally
 export default {
     methods: {
         getEmotionColor(emotion) {

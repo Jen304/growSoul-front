@@ -9,6 +9,7 @@ import {
 } from "@mdi/js";
 import { getData, setData } from 'nuxt-storage/local-storage';
 
+
 /*
     Emotion Vuex module:
     State:
@@ -41,6 +42,7 @@ const save = (list) => {
     }
     else { console.log("your browser does not support local storage"); }
 }
+
 export const state = () => ({
     // init emotion list
     list: getEmotionStorage(),
@@ -101,7 +103,9 @@ export const getters = {
 
     // return a list of emotion according to that range time
     emotionListWithinRangeTime(state) {
+        // return a function to accept parameters
         return ({ start, end }) => {
+            // return an array according to the range of time
             return state.list.filter(emotion => {
                 return emotion.created_at > start && emotion.created_at < end
             })
