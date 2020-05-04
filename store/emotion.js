@@ -71,10 +71,10 @@ const mutations = {
     },
     update(state, emotion) {
         const list = state.list;
-
+        let found = false;
         for (let i = 0; i < list.length && !found; i++) {
             if (list[i].created_at == emotion.created_at) {
-                list[i] = newEmotion;
+                list[i] = emotion;
                 found = true;
             }
         }
