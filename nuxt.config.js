@@ -37,6 +37,7 @@ export default {
     '~/plugins/vue-notifications',
     "~/plugins/mixins.js",
 
+
   ],
   /*
   ** Nuxt.js dev-modules
@@ -48,6 +49,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
   ],
   /*
   ** vuetify module configuration

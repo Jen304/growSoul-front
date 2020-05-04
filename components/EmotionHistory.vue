@@ -17,9 +17,9 @@
           <v-icon
             large
             class="mr-2"
-            :color="getEmotionColor(emotion.emotion)"
-          >{{ getEmotionIcon(emotion.emotion)}}</v-icon>
-          {{ getEmotionString(emotion.emotion)}}
+            :color="getEmotionColor(emotion.value)"
+          >{{ getEmotionIcon(emotion.value)}}</v-icon>
+          {{ getEmotionString(emotion.value)}}
           <v-spacer></v-spacer>
           <v-btn icon @click.stop="openDialog(emotion)">
             <v-icon>mdi-pencil</v-icon>
@@ -37,16 +37,26 @@
 <script>
 import EmotionFormVue from "./EmotionForm.vue";
 import Dialog from "../assets/mixins/Dialog";
+
 export default {
   name: "emotion-history",
+  data() {
+    return {
+      list: []
+    };
+  },
   // form to edit emotion
   components: {
     "emotion-form": EmotionFormVue
   },
   mixins: [Dialog],
+  mounted() {
+    this.list = this.getListFromBackEnd();
+  },
 
   computed: {
     lastEmotion() {
+      // return state so it will update according to vuex state
       return this.$store.state.emotion.list;
     }
   },
@@ -54,6 +64,10 @@ export default {
     // return the interval from now
     getTime(time) {
       return this.$moment(time).fromNow();
+    },
+    async getListFromBackEnd() {
+      await this.$store.dispatch("emotion/getEmotionList");
+      return this.$store.state.emotion.list;
     }
   }
 };

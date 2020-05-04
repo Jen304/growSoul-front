@@ -15,7 +15,7 @@
     </v-container>
 
     <v-card-text>
-      <v-text-field label="Write something about it" counter outlined v-model="story"></v-text-field>
+      <v-text-field label="Write something about it" counter outlined v-model="emotion.story"></v-text-field>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
@@ -31,9 +31,12 @@ export default {
   data() {
     return {
       question: "How are you now?",
-      emotion: null,
-      story: null,
-      created_at: null,
+      emotion: {
+        value: null,
+        story: null,
+        created_at: null
+      },
+
       // show error message if use does not chose emotion
       error: false
     };
@@ -47,36 +50,27 @@ export default {
   methods: {
     // assign chosen emotion to emotion data
     onEmotionClick(emotion) {
-      this.emotion = emotion;
-      console.log(this.emotion);
+      this.emotion.value = emotion;
     },
     onSubmit() {
-      const emotion = this.emotion;
+      const emotion = this.emotion.value;
       // check the emtion value
       if (emotion == null) {
         //console.log("error");
         this.error = true;
       } else {
-        this.$store.commit("emotion/submit", this.newEmotion());
+        this.$store.dispatch("emotion/addOrUpdateEmotion", this.emotion);
         //console.log(this.$store.state.emotion.list);
         this.$emit("hide-form");
       }
     },
     // set the size of icon larger if it is choosen
     getSize(emotion) {
-      if (this.emotion == emotion) {
+      if (this.emotion.value == emotion) {
         return 50;
       } else {
         return 40;
       }
-    },
-    // helper method: return the new emotion
-    newEmotion() {
-      return {
-        emotion: this.emotion,
-        created_at: this.created_at || new Date(),
-        story: this.story
-      };
     }
   },
   props: {
@@ -89,10 +83,9 @@ export default {
   mounted() {
     // assign values from props to components datas if prop is assigned
     if (this.value) {
-      const editedEmotion = this.value;
-      this.emotion = editedEmotion.emotion;
-      this.story = editedEmotion.story;
-      this.created_at = editedEmotion.created_at;
+      this.emotion = Object.assign({}, this.value);
+      //his.story = editedEmotion.story;
+      //this.created_at = editedEmotion.created_at;
     }
   }
 };

@@ -13,7 +13,10 @@
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.10.3",
+    "axios": "^0.19.2",
     "chart.js": "^2.9.3",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "nuxt": "^2.12.2",
     "nuxt-storage": "^1.2.2",

@@ -192,24 +192,27 @@ export default {
       }
       nativeEvent.stopPropagation();
     },
-    updateEmotion({ start, end }) {
+    async updateEmotion({ start, end }) {
       let emotionList = [];
       const min = new Date(`${start.date}T00:00:00`);
       const max = new Date(`${end.date}T23:59:59`);
-      emotionList = this.$store.getters["emotion/emotionListWithinRangeTime"]({
-        start: min,
-        end: max
-      });
+      //console.log(max);
+      // use getter, need to force re-render as it does not update after vuex state change
+      //emotionList = this.$store.getters["emotion/emotionListWithinRangeTime"]({
+      //  start: min,
+      //  end: max
+      //});
+      emotionList = await this.getListFromBackEnd({ start: min, end: max });
       //console.log(emotionList);
       const event = [];
 
       for (let emotion of emotionList) {
         event.push({
-          name: this.getEmotionString(emotion.emotion), //this.$store.state.emotion.emotionString[emotion.emotion],
-          emotion: emotion.emotion,
+          name: this.getEmotionString(emotion.value), //this.$store.state.emotion.emotionString[emotion.emotion],
+          emotion: emotion,
           start: this.formatDate(new Date(emotion.created_at)),
-          end: this.formatDate(new Date(emotion.created_at + 1000)),
-          color: this.getEmotionColor(emotion.emotion), //this.$store.state.emotion.emotionColors[emotion.emotion],
+          end: this.formatDate(new Date(emotion.created_at)),
+          color: this.getEmotionColor(emotion.value), //this.$store.state.emotion.emotionColors[emotion.emotion],
           story: emotion.story,
           created_at: emotion.created_at
         });
@@ -233,6 +236,14 @@ export default {
       this.dialog = false;
       //console.log("reload");
       this.reload++;
+    },
+    async getListFromBackEnd({ start, end }) {
+      console.log(end);
+      await this.$store.dispatch("emotion/getListWithTimeRange", {
+        start,
+        end
+      });
+      return this.$store.state.emotion.list;
     }
   }
 };

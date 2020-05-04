@@ -1,14 +1,5 @@
-// imort icon
-import {
-    mdiEmoticonKiss,// very good
-    mdiEmoticonExcited, // good
-    mdiEmoticonNeutral, // neural
-    mdiEmoticonCry,// bad
-    mdiEmoticonSad, // not so good
-
-} from "@mdi/js";
 import { getData, setData } from 'nuxt-storage/local-storage';
-
+import moment from 'moment'
 
 /*
     Emotion Vuex module:
@@ -19,6 +10,7 @@ import { getData, setData } from 'nuxt-storage/local-storage';
 // keyName is used to access emotion list from localStorage
 const keyName = 'emotionList';
 // get emotion list from localstorage
+/*
 const getEmotionStorage = () => {
     let list = [];
     // check whether the browser support localStorage
@@ -34,24 +26,25 @@ const getEmotionStorage = () => {
         console.log("your browser does not support local storage");
     }
 
-}
+}*/
+/*
 const save = (list) => {
     // check whether the browser support localStorage
     if (typeof (Storage) !== "undefined") {
         setData(keyName, JSON.stringify(list));
     }
     else { console.log("your browser does not support local storage"); }
-}
+}*/
 
-export const state = () => ({
+const state = () => ({
     // init emotion list
-    list: getEmotionStorage(),
+    list: [], //getEmotionStorage(),
     emotionIcons: {
-        "5": mdiEmoticonKiss,
-        "4": mdiEmoticonExcited,
-        "3": mdiEmoticonNeutral,
-        "2": mdiEmoticonSad,
-        "1": mdiEmoticonCry
+        "5": "mdi-emoticon-kiss",
+        "4": "mdi-emoticon-excited",
+        "3": "mdi-emoticon-neutral",
+        "2": "mdi-emoticon-sad",
+        "1": "mdi-emoticon-cry"
     },
     emotionString: {
         "5": "Very good",
@@ -69,29 +62,30 @@ export const state = () => ({
     }
 });
 
-export const mutations = {
-    submit(state, newEmotion) {
-        let found = false;
+const mutations = {
+    getList(state, list) {
+        state.list = list
+    },
+    add(state, emotion) {
+        state.list.unshift(emotion);
+    },
+    update(state, emotion) {
         const list = state.list;
-        // search the emotion according to timestamp (in case of editing)
-        // need to refactor, reduce the loop
+
         for (let i = 0; i < list.length && !found; i++) {
-            if (list[i].created_at == newEmotion.created_at) {
+            if (list[i].created_at == emotion.created_at) {
                 list[i] = newEmotion;
                 found = true;
             }
         }
-        if (!found) {
-            list.unshift(newEmotion);
-        }
         // save the list to localStorage
-        save(list);
+        //save(list);
 
     },
 
 
 }
-export const getters = {
+const getters = {
     // return the emotion list with icon (for display purpose)
     emotionList(state) {
         let list = [];
@@ -111,4 +105,38 @@ export const getters = {
             })
         }
     },
+}
+import { fetchEmotionList, getEmotionWithTimeRange, createEmotion, updateEmotion } from '../services/emotionService'
+
+const actions = {
+    async getEmotionList({ commit }) {
+        const list = await fetchEmotionList();
+        commit('getList', list);
+
+    },
+    async getListWithTimeRange({ commit }, { start, end }) {
+        const list = await getEmotionWithTimeRange({ start, end });
+        commit('getList', list);
+    },
+    async addOrUpdateEmotion({ commit }, emotion) {
+        if (emotion.id) {
+            updateEmotion(emotion);
+            commit('update', emotion);
+
+        } else {
+            emotion.created_at = new Date();
+            const newEmotion = await createEmotion(emotion);
+            console.log(newEmotion);
+            commit('add', newEmotion);
+        }
+    }
+}
+
+
+export default {
+    namespaced: true,
+    state,
+    getters,
+    actions,
+    mutations
 }
