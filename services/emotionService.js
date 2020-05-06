@@ -1,5 +1,8 @@
-import api from './endpoint';
+//import api from './endpoint';
 import moment from 'moment';
+//import axios from 'axios';
+
+
 const listWithJavaScriptDate = (list) => {
     return list.map(element => {
         return {
@@ -17,8 +20,8 @@ const getEmotionWithValidFormat = (object) => {
 
     }
 }
-
-const fetchEmotionList = () => {
+// 
+const fetchEmotionList = (api) => {
     return api.get('emotions/').then(response => {
         console.table(listWithJavaScriptDate(response.data))
         return listWithJavaScriptDate(response.data)
@@ -26,13 +29,13 @@ const fetchEmotionList = () => {
     })
 };
 
-const getEmotionWithTimeRange = ({ start, end }) => {
-    console.log(start)
-    console.log(end)
-    console.log(moment(end));
+const getEmotionWithTimeRange = (api, { start, end }) => {
+    //console.log(start)
+    //console.log(end)
+    //console.log(moment(end));
     const start_str = moment(start).format();
     const end_str = moment(end).format()
-    return api.get(`emotions/range/${start_str}/${end_str}`).then(response => {
+    return api.get(`emotions/timerange/${start_str}/${end_str}`).then(response => {
         return listWithJavaScriptDate(response.data);
     }).catch(e => {
         console.log(e);
@@ -42,11 +45,11 @@ const getEmotionWithTimeRange = ({ start, end }) => {
 
 };
 // newEmotion should be an object
-const createEmotion = (newEmotion) => {
+const createEmotion = (api, newEmotion) => {
     return api.post('emotions/', getEmotionWithValidFormat(newEmotion))
         .then(response => {
-            console.log(typeof response.data.created_at);
-            console.log(new Date(response.created_at));
+            //console.log(typeof response.data.created_at);
+            //console.log(new Date(response.created_at));
             return {
                 ...response.data,
                 created_at: new Date(response.data.created_at)
@@ -54,13 +57,13 @@ const createEmotion = (newEmotion) => {
         })
 };
 
-const updateEmotion = (emotion) => {
+const updateEmotion = (api, emotion) => {
     return api.put(`emotions/${emotion.id}`, getEmotionWithValidFormat(emotion)).then(response => {
-        console.log(response)
-        /*return {
+        //console.log(response)
+        return {
             ...response.data,
             created_at: new Date(response.date.created_at)
-        }*/
+        }
     });
 }
 export {

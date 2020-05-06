@@ -8,7 +8,7 @@ import moment from 'moment'
         * emotions(map) pair of emotion and emtion icon, string, color
 */
 // keyName is used to access emotion list from localStorage
-const keyName = 'emotionList';
+//const keyName = 'emotionList';
 // get emotion list from localstorage
 /*
 const getEmotionStorage = () => {
@@ -109,23 +109,27 @@ const getters = {
 import { fetchEmotionList, getEmotionWithTimeRange, createEmotion, updateEmotion } from '../services/emotionService'
 
 const actions = {
-    async getEmotionList({ commit }) {
-        const list = await fetchEmotionList();
+    async getEmotionList({ commit, rootState }) {
+        const api = rootState.auth.axiosInstance;
+        console.log(api);
+        const list = await fetchEmotionList(api);
         commit('getList', list);
 
     },
-    async getListWithTimeRange({ commit }, { start, end }) {
-        const list = await getEmotionWithTimeRange({ start, end });
+    async getListWithTimeRange({ commit, rootState }, { start, end }) {
+        const api = rootState.auth.axiosInstance;
+        const list = await getEmotionWithTimeRange(api, { start, end });
         commit('getList', list);
     },
-    async addOrUpdateEmotion({ commit }, emotion) {
+    async addOrUpdateEmotion({ commit, rootState }, emotion) {
         if (emotion.id) {
-            updateEmotion(emotion);
+            updateEmotion(api, emotion);
             commit('update', emotion);
 
         } else {
+            const api = rootState.auth.axiosInstance;
             emotion.created_at = new Date();
-            const newEmotion = await createEmotion(emotion);
+            const newEmotion = await createEmotion(api, emotion);
             console.log(newEmotion);
             commit('add', newEmotion);
         }

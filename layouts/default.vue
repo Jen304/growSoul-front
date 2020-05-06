@@ -73,20 +73,20 @@
     <v-app-bar color="cyan" fixed app dark>
       <v-spacer></v-spacer>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
-
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
     <v-content>
       <nuxt />
     </v-content>
+    <!--
     <v-footer color="cyan" app>
       <v-spacer></v-spacer>
       <span class="white--text">Grow your soul &copy; 2020</span>
-    </v-footer>
+    </v-footer>-->
   </v-app>
 </template>
 <script>
-// import icon
+//import { inspectToken } from "../services/authService";
 
 export default {
   data() {
@@ -95,6 +95,9 @@ export default {
       // icon list
     };
   },
+  // check auth of user
+
+  middleware: ["auth"],
   computed: {
     // Each page should register the title or it will should defaut title
     title() {
