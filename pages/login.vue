@@ -8,13 +8,15 @@
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-card-text>
-          <v-form class="form-content">
+          <v-form class="form-content" ref="form">
             <v-text-field
               v-model="email"
               label="Email"
               name="email"
               prepend-icon="mdi-account-circle"
+              :rules="emailRules"
               type="text"
+              required
             ></v-text-field>
             <v-text-field
               v-model="password"
@@ -23,12 +25,14 @@
               name="password"
               prepend-icon="mdi-lock"
               type="password"
+              :rules="passwordRules"
+              required
             ></v-text-field>
           </v-form>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" type="password" @click="onUserSubmit">Submit</v-btn>
+          <v-btn color="primary" type="password" @click="validate">Submit</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -43,12 +47,17 @@ export default {
   data() {
     return {
       email: null,
-      password: null
+      password: null,
+      emailRules: [
+        v => !!v || "Email is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ],
+      passwordRules: [v => !!v || "Password is required"]
     };
   },
   layout: "plain",
   methods: {
-    async onUserSubmit() {
+    async login() {
       console.log(this.email + " " + this.password);
 
       const userInfo = { email: this.email, password: this.password };
@@ -58,6 +67,11 @@ export default {
       } catch (error) {
         console.log(error);
         this.$router.push("/");
+      }
+    },
+    validate() {
+      if (this.$refs.form.validate()) {
+        login();
       }
     }
   }

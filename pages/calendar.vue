@@ -60,7 +60,7 @@
               <v-toolbar :color="selectedEmotion.color" dark>
                 <v-toolbar-title>{{ selectedEmotion.name }}</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn icon @click.stop="openDialog(selectedEmotion)">
+                <v-btn icon @click.stop="openDialog(selectedEmotion.emotion)">
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
               </v-toolbar>

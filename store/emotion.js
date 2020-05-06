@@ -122,15 +122,15 @@ const actions = {
         commit('getList', list);
     },
     async addOrUpdateEmotion({ commit, rootState }, emotion) {
+        const api = rootState.auth.axiosInstance;
         if (emotion.id) {
             updateEmotion(api, emotion);
             commit('update', emotion);
 
         } else {
-            const api = rootState.auth.axiosInstance;
             emotion.created_at = new Date();
             const newEmotion = await createEmotion(api, emotion);
-            console.log(newEmotion);
+            //console.log(newEmotion);
             commit('add', newEmotion);
         }
     }

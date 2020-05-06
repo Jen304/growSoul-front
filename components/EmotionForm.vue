@@ -82,6 +82,7 @@ export default {
   },
   mounted() {
     // assign values from props to components datas if prop is assigned
+    console.log(this.value);
     if (this.value) {
       this.emotion = Object.assign({}, this.value);
       //his.story = editedEmotion.story;

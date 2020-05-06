@@ -4,8 +4,9 @@ const checkRefreshToken = ({ store, redirect }) => {
     if (token) {
         const decodedToken = jwt_decode(token);
         const expire_time = new Date(decodedToken.exp * 1000);
+        console.log(expire_time);
 
-        if (expire_time >= Date.now()) {
+        if (expire_time.getTime() <= (new Date()).getTime()) {
             // need to redirect to login page
             return redirect('/login')
         }
@@ -21,12 +22,13 @@ export default function ({ store, redirect }) {
 
     // check access token
     const token = localStorage.getItem('access_token');
-    console.log(token)
+
     if (token) {
         const decodedToken = jwt_decode(token);
         const expire_time = new Date(decodedToken.exp * 1000);
+        console.log(expire_time.getTime() < (new Date()).getTime())
 
-        if (expire_time >= Date.now()) {
+        if (expire_time.getTime() <= (new Date()).getTime()) {
             checkRefreshToken({ store, redirect });
         }
 
