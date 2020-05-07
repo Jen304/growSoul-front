@@ -44,6 +44,7 @@ const signup = (api, userInfo) => {
 }
 const logout = (api, refreshToken) => {
     //const payload = localStorage.getItem('refresh_token');
+    console.log(refreshToken);
     return api.post('auth/logout/', { token: refreshToken })
         .then(response => {
             //api.defaults.headers['Authorization'] = "JWT " + response.data.access;

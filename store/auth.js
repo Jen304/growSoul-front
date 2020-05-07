@@ -48,12 +48,12 @@ export const actions = {
     },
     async logout({ commit, state }) {
         const api = state.axiosInstance;
-        localStorage.setItem('access_token', null);
         const token = localStorage.getItem('refresh_token');
+        logout(api, token);
+        localStorage.setItem('access_token', null);
         localStorage.setItem('refresh_token', null);
         commit('setNewTokenToHeader', null);
-        // need to send to backend
-        return await logout(api, token);
+
 
 
     }
