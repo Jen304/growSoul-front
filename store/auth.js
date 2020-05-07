@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { login, refreshToken, signup } from "../services/authService";
+import { login, refreshToken, signup, logout } from "../services/authService";
 export const state = () => ({
     axiosInstance: axios.create({
         baseURL: 'http://127.0.0.1:8000/v1/',
@@ -44,6 +44,17 @@ export const actions = {
         localStorage.setItem('access_token', res.access);
         localStorage.setItem('refresh_token', res.refresh);
         commit('setNewTokenToHeader', res.access);
+
+    },
+    async logout({ commit, state }) {
+        const api = state.axiosInstance;
+        localStorage.setItem('access_token', null);
+        const token = localStorage.getItem('refresh_token');
+        localStorage.setItem('refresh_token', null);
+        commit('setNewTokenToHeader', null);
+        // need to send to backend
+        return await logout(api, token);
+
 
     }
 }

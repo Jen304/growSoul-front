@@ -19,7 +19,7 @@ const login = (api, userInfo) => {
 }
 const refreshToken = (api, refreshToken) => {
     //const payload = localStorage.getItem('refresh_token');
-    return api.post('auth/refresh/', refreshToken)
+    return api.post('auth/refresh/', { refresh: refreshToken })
         .then(response => {
             //api.defaults.headers['Authorization'] = "JWT " + response.data.access;
             //localStorage.setItem('access_token', response.data.access);
@@ -42,6 +42,19 @@ const signup = (api, userInfo) => {
 
 
 }
+const logout = (api, refreshToken) => {
+    //const payload = localStorage.getItem('refresh_token');
+    return api.post('auth/logout/', { token: refreshToken })
+        .then(response => {
+            //api.defaults.headers['Authorization'] = "JWT " + response.data.access;
+            //localStorage.setItem('access_token', response.data.access);
+            return response;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+}
 
 
-export { signup, login, refreshToken, }
+export { signup, login, refreshToken, logout }

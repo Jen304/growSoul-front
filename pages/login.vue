@@ -32,7 +32,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" type="password" @click="validate">Submit</v-btn>
+          <v-btn color="primary" type="password" @click="validate">Login</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -66,12 +66,12 @@ export default {
         this.$router.push("/home");
       } catch (error) {
         console.log(error);
-        this.$router.push("/");
+        this.$router.push("/login");
       }
     },
     validate() {
       if (this.$refs.form.validate()) {
-        login();
+        this.login();
       }
     }
   }
