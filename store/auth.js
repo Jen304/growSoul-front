@@ -2,7 +2,7 @@ import axios from 'axios';
 import { login, refreshToken, signup, logout } from "../services/authService";
 export const state = () => ({
     axiosInstance: axios.create({
-        baseURL: 'http://0.0.0.0:80/v1/',
+        baseURL: 'http://ec2-3-23-98-73.us-east-2.compute.amazonaws.com/v1/',
         timeout: 5000,
         headers: {
             'Authorization': "JWT " + localStorage.getItem('access_token'),
