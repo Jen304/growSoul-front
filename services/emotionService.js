@@ -1,6 +1,7 @@
 //import api from './endpoint';
 import moment from 'moment';
 //import axios from 'axios';
+import { authRequest } from './connectServer';
 
 
 const listWithJavaScriptDate = (list) => {
@@ -21,7 +22,7 @@ const getEmotionWithValidFormat = (object) => {
     }
 }
 // 
-const fetchEmotionList = (api) => {
+const fetchEmotionListRequest = (api) => {
     return api.get('emotions/').then(response => {
         console.table(listWithJavaScriptDate(response.data))
         return listWithJavaScriptDate(response.data)
@@ -29,7 +30,7 @@ const fetchEmotionList = (api) => {
     })
 };
 
-const getEmotionWithTimeRange = (api, { start, end }) => {
+const getEmotionWithTimeRangeRequest = (api, { start, end }) => {
     //console.log(start)
     //console.log(end)
     //console.log(moment(end));
@@ -45,11 +46,11 @@ const getEmotionWithTimeRange = (api, { start, end }) => {
 
 };
 // newEmotion should be an object
-const createEmotion = (api, newEmotion) => {
+const createEmotionRequest = (api, newEmotion) => {
     return api.post('emotions/', getEmotionWithValidFormat(newEmotion))
         .then(response => {
             //console.log(typeof response.data.created_at);
-            //console.log(new Date(response.created_at));
+            console.log(new Date(response.data.created_at));
             return {
                 ...response.data,
                 created_at: new Date(response.data.created_at)
@@ -57,7 +58,7 @@ const createEmotion = (api, newEmotion) => {
         })
 };
 
-const updateEmotion = (api, emotion) => {
+const updateEmotionRequest = (api, emotion) => {
     return api.put(`emotions/${emotion.id}`, getEmotionWithValidFormat(emotion)).then(response => {
         //console.log(response)
         return {
@@ -66,6 +67,19 @@ const updateEmotion = (api, emotion) => {
         }
     });
 }
+
+const fetchEmotionList = () => {
+    return authRequest(fetchEmotionListRequest);
+};
+const getEmotionWithTimeRange = () => {
+    return authRequest(getEmotionWithTimeRangeRequest);
+};
+const createEmotion = (emotion) => {
+    return authRequest(createEmotionRequest, emotion)
+};
+const updateEmotion = (emotion) => {
+    return authRequest(updateEmotionRequest, emotion);
+};
 export {
     fetchEmotionList,
     getEmotionWithTimeRange,

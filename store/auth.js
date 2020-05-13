@@ -1,58 +1,53 @@
 import axios from 'axios';
 import { login, refreshToken, signup, logout } from "../services/authService";
 export const state = () => ({
-    axiosInstance: axios.create({
-        baseURL: 'http://ec2-3-23-98-73.us-east-2.compute.amazonaws.com/v1/',
-        timeout: 5000,
-        headers: {
-            'Authorization': "JWT " + localStorage.getItem('access_token'),
 
-        }
-    })
+    authenticated: false
 })
 export const mutations = {
-    setNewTokenToHeader(state, newToken) {
-        state.axiosInstance.defaults.headers['Authorization']
-            = "JWT " + newToken;
 
+    setAuthStatus(state, status) {
+        state.authenticated = status
     }
 }
 
 export const actions = {
     // user info should be an objects
-    async userLogin({ commit, state }, userInfo) {
-        console.log('login')
-        const api = state.axiosInstance;
-        const res = await login(api, userInfo);
-        localStorage.setItem('access_token', res.access);
-        localStorage.setItem('refresh_token', res.refresh);
-        commit('setNewTokenToHeader', res.access);
+    async userLogin({ commit }, userInfo) {
+        //console.log('login')
+        try {
+            await login(userInfo);
+            commit('setAuthStatus', true);
+        } catch (e) {
+            // need to add feature to announce user
+            console.log(e);
+        }
 
     },
-    async refreshAccessToken({ commit, state }, token) {
-        const api = state.axiosInstance;
-        const res = await refreshToken(api, token);
-        localStorage.setItem('access_token', res.access);
-        //localStorage.setItem('refresh_token', res.refresh);
-        commit('setNewTokenToHeader', res.access);
+    async refreshAccessToken({ commit }, token) {
+
+        try {
+            await refreshToken(token);
+            //localStorage.setItem('refresh_token', res.refresh);
+
+        } catch (e) {
+            console.log(e);
+        }
 
     },
-    async userSignup({ commit, state }, userInfo) {
-        const api = state.axiosInstance;
+    async userSignup({ commit }, userInfo) {
+
         //await login(api, userInfo);
-        const res = await signup(api, userInfo);
-        localStorage.setItem('access_token', res.access);
-        localStorage.setItem('refresh_token', res.refresh);
-        commit('setNewTokenToHeader', res.access);
+        signup(userInfo);
+        commit('setAuthStatus', true);
+
 
     },
-    async logout({ commit, state }) {
-        const api = state.axiosInstance;
-        const token = localStorage.getItem('refresh_token');
-        logout(api, token);
-        localStorage.setItem('access_token', null);
-        localStorage.setItem('refresh_token', null);
-        commit('setNewTokenToHeader', null);
+    async logout({ commit }) {
+        await logout(api);
+        commit('setAuthStatus', false);
+
+
 
 
 

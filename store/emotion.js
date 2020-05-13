@@ -109,27 +109,28 @@ const getters = {
 import { fetchEmotionList, getEmotionWithTimeRange, createEmotion, updateEmotion } from '../services/emotionService'
 
 const actions = {
-    async getEmotionList({ commit, rootState }) {
-        const api = rootState.auth.axiosInstance;
-        console.log(api);
-        const list = await fetchEmotionList(api);
+    async getEmotionList({ commit }) {
+        //const api = rootState.auth.axiosInstance;
+        //console.log(api);
+        const list = await fetchEmotionList();
+        console.log(list);
         commit('getList', list);
 
     },
-    async getListWithTimeRange({ commit, rootState }, { start, end }) {
-        const api = rootState.auth.axiosInstance;
-        const list = await getEmotionWithTimeRange(api, { start, end });
+    async getListWithTimeRange({ commit }, { start, end }) {
+        //const api = rootState.auth.axiosInstance;
+        const list = await getEmotionWithTimeRange({ start, end });
         commit('getList', list);
     },
     async addOrUpdateEmotion({ commit, rootState }, emotion) {
-        const api = rootState.auth.axiosInstance;
+        // const api = rootState.auth.axiosInstance;
         if (emotion.id) {
-            updateEmotion(api, emotion);
+            updateEmotion(emotion);
             commit('update', emotion);
 
         } else {
             emotion.created_at = new Date();
-            const newEmotion = await createEmotion(api, emotion);
+            const newEmotion = await createEmotion(emotion);
             //console.log(newEmotion);
             commit('add', newEmotion);
         }
