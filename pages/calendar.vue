@@ -150,7 +150,8 @@ export default {
   mounted() {
     //console.log(this.$store.state.emotion.emotionColors);
     // call updateEmotion function (@change="updateEmotion")
-    this.$refs.calendar.checkChange({ start: this.start, end: this.end });
+    const timeRange = { start: this.start, end: this.end };
+    this.$refs.calendar.checkChange(timeRange);
   },
   methods: {
     // show selected day info
