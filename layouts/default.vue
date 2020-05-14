@@ -33,6 +33,7 @@
             <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
         <!--
         <v-list-item @click>
           <v-list-item-action>
@@ -79,6 +80,9 @@
     </v-navigation-drawer>
     <!-- Header -->
     <v-app-bar color="cyan" fixed app dark>
+      <v-btn icon to="/home">
+        <v-icon large>mdi-home-circle</v-icon>
+      </v-btn>
       <v-spacer></v-spacer>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>

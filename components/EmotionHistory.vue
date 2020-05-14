@@ -1,9 +1,9 @@
 <template>
   <v-layout justify-center>
     <v-flex xs12 sm10 md8>
-      <div class="display-1">
+      <div class="headline">
         <v-layout>
-          <p>History</p>
+          <p>Lastest emotion</p>
           <v-spacer></v-spacer>
           <v-btn to="/calendar">
             <v-icon>mdi-calendar-heart</v-icon>

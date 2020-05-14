@@ -31,7 +31,7 @@ export const actions = {
         commit('setAuthStatus', true);
     },
     async logout({ commit }) {
-        await logout(api);
+        await logout();
         commit('setAuthStatus', false);
     }
 }

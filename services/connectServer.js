@@ -17,8 +17,8 @@ const endpoint = axios.create({
 
     }
 });
-const resetEndpoint = () => {
-    endpoint.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
+const resetEndpoint = (newToken) => {
+    endpoint.defaults.headers['Authorization'] = "JWT " + newToken;
 }
 const nonAuthRequest = async (request, data) => {
     await request(endpoint, data);
