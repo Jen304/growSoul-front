@@ -19,13 +19,20 @@ const endpoint = axios.create({
 });
 const resetEndpoint = (newToken) => {
     endpoint.defaults.headers['Authorization'] = "JWT " + newToken;
+    console.log(endpoint);
 }
 const nonAuthRequest = async (request, data) => {
+    const endpoint = axios.create({
+        baseURL: 'http://127.0.0.1:8000/v1/',//'http://ec2-3-23-98-73.us-east-2.compute.amazonaws.com/v1/',
+        timeout: 5000,
+
+    });
     await request(endpoint, data);
     // after send that request need to resetEndpoint
     resetEndpoint();
 }
 const authRequest = async (request, data) => {
+
     //console.log(request)
     const token = localStorage.getItem('access_token');
     //console.log(token)
@@ -47,6 +54,14 @@ const authRequest = async (request, data) => {
             }
 
         }
+        const endpoint = axios.create({
+            baseURL: 'http://127.0.0.1:8000/v1/',//'http://ec2-3-23-98-73.us-east-2.compute.amazonaws.com/v1/',
+            timeout: 5000,
+            headers: {
+                'Authorization': "JWT " + localStorage.getItem('access_token'),
+
+            }
+        });
         console.log("done this");
         console.log(request);
         if (request) {
