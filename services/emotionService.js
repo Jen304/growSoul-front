@@ -31,8 +31,8 @@ const fetchEmotionListRequest = (api) => {
 };
 
 const getEmotionWithTimeRangeRequest = (api, { start, end }) => {
-    //console.log(start)
-    //console.log(end)
+    console.log(start)
+    console.log(end)
     //console.log(moment(end));
     const start_str = moment(start).format();
     const end_str = moment(end).format()
@@ -71,8 +71,8 @@ const updateEmotionRequest = (api, emotion) => {
 const fetchEmotionList = () => {
     return authRequest(fetchEmotionListRequest);
 };
-const getEmotionWithTimeRange = () => {
-    return authRequest(getEmotionWithTimeRangeRequest);
+const getEmotionWithTimeRange = (timeRange) => {
+    return authRequest(getEmotionWithTimeRangeRequest, timeRange);
 };
 const createEmotion = (emotion) => {
     return authRequest(createEmotionRequest, emotion)

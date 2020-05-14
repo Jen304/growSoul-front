@@ -38,17 +38,22 @@ const authRequest = async (request, data) => {
 
         if (expire_time.getTime() <= (new Date()).getTime()) {
             try {
-                await checkRefreshToken({ store, request });
+                await checkRefreshToken();
                 // check the request is exist or not
 
             } catch (e) {
                 throw e;
 
             }
+
         }
+        console.log("done this");
+        console.log(request);
         if (request) {
+            console.log(data);
             return await request(endpoint, data);
         }
+
     } else {
         throw "Unauthorized";
     }

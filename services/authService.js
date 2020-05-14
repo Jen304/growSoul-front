@@ -14,6 +14,7 @@ const loginRequest = (api, userInfo) => {
         })
         .catch(error => {
             console.log(error);
+            throw "Error occurs"
         })
 
 }
@@ -27,17 +28,20 @@ const refreshTokenRequest = (api, refreshToken) => {
         })
         .catch(error => {
             console.log(error);
+            throw "Error occurs";
         })
 
 }
 const signupRequest = (api, userInfo) => {
     return api.post('user/create/', userInfo).then(response => {
         console.log(response);
+        // should modify the server to return token rather than this
         return login(api, userInfo);
         //return response.data;
 
     }).catch(error => {
         console.log(error);
+        throw "Error occur"
     });
 
 

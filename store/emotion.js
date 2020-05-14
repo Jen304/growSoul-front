@@ -112,7 +112,7 @@ const actions = {
     async getEmotionList({ commit }) {
         //const api = rootState.auth.axiosInstance;
         //console.log(api);
-        const list = await fetchEmotionList();
+        const list = await fetchEmotionList() || [];
         console.log(list);
         commit('getList', list);
 

@@ -19,7 +19,7 @@ const checkRefreshToken = async ({ store, redirect }) => {
 
     }
 }
-export default async function ({ store, redirect }) {
+export default async function ({ redirect }) {
     //console.log('auth middleware')
     try {
         await authRequest();
