@@ -1,7 +1,7 @@
 //import api from './endpoint';
 //import jwt_decode from 'jwt-decode'
 
-import { nonAuthRequest, endpoint, authRequest } from './connectServer';
+import { nonAuthRequest, authRequest } from './connectServer';
 
 
 const loginRequest = (api, userInfo) => {
@@ -18,20 +18,7 @@ const loginRequest = (api, userInfo) => {
         })
 
 }
-const refreshTokenRequest = (api, refreshToken) => {
-    //const payload = localStorage.getItem('refresh_token');
-    return api.post('auth/refresh/', { refresh: refreshToken })
-        .then(response => {
-            //api.defaults.headers['Authorization'] = "JWT " + response.data.access;
-            localStorage.setItem('access_token', response.data.access);
-            return response.data;
-        })
-        .catch(error => {
-            console.log(error);
-            throw "Error occurs";
-        })
 
-}
 const signupRequest = (api, userInfo) => {
     return api.post('user/create/', userInfo).then(response => {
         console.log(response);
@@ -71,13 +58,10 @@ const signup = (userInfo) => {
     return nonAuthRequest(signupRequest, userInfo);
 }
 
-const refreshToken = () => {
-    const token = localStorage.getItem('refresh_token');
-    return nonAuthRequest(refreshTokenRequest, token);
-}
+
 const logout = () => {
     const token = localStorage.getItem('refresh_token');
     authRequest(logoutRequest, token);
 }
 
-export { signup, login, refreshToken, logout }
+export { signup, login, logout }

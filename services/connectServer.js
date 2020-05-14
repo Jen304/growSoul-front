@@ -31,10 +31,10 @@ const authRequest = async (request, data) => {
     //console.log(token)
 
     if (token) {
-        console.log("token exisit")
+
         const decodedToken = jwt_decode(token);
         const expire_time = new Date(decodedToken.exp * 1000);
-        console.log(expire_time.getTime() > (new Date()).getTime())
+        //console.log(expire_time.getTime() > (new Date()).getTime())
 
         if (expire_time.getTime() <= (new Date()).getTime()) {
             try {
@@ -60,9 +60,10 @@ const authRequest = async (request, data) => {
 
 }
 import jwt_decode from 'jwt-decode'
-import { refreshToken } from './authService';
+//import { refreshToken } from './authService';
 // refresh the access token if refresh token still valid
 const checkRefreshToken = async () => {
+    console.log("refreshToken");
     const token = localStorage.getItem('refresh_token');
     if (token) {
         const decodedToken = jwt_decode(token);
@@ -75,7 +76,19 @@ const checkRefreshToken = async () => {
         }
         else {
             // refresh token
-            refreshToken(endpoint);
+            console.log('refresh');
+            endpoint.post('auth/refresh/', { refresh: token })
+                .then(response => {
+                    //api.defaults.headers['Authorization'] = "JWT " + response.data.access;
+                    localStorage.setItem('access_token', response.data.access);
+                    console.log(response.data.access);
+                    resetEndpoint(response.data.access);
+                    return response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                    throw "Error occurs";
+                })
         }
 
     }

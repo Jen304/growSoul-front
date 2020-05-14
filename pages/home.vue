@@ -2,7 +2,7 @@
   <v-container fluid full-height>
     <v-layout justify-center class="emotion-card" v-if="!hideForm" ma-5>
       <v-flex xs11 sm6 md3>
-        <emotion-form @hide-form="hideForm = true"></emotion-form>
+        <emotion-form></emotion-form>
       </v-flex>
     </v-layout>
     <emotion-history></emotion-history>

@@ -30,6 +30,7 @@ export default {
 
   data() {
     return {
+      key: 1,
       question: "How are you now?",
       emotion: {
         value: null,
@@ -62,6 +63,7 @@ export default {
         this.$store.dispatch("emotion/addOrUpdateEmotion", this.emotion);
         //console.log(this.$store.state.emotion.list);
         this.$emit("hide-form");
+        this.resetForm();
       }
     },
     // set the size of icon larger if it is choosen
@@ -71,6 +73,13 @@ export default {
       } else {
         return 40;
       }
+    },
+    resetForm() {
+      this.emotion = {
+        value: null,
+        story: null,
+        created_at: null
+      };
     }
   },
   props: {
