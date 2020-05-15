@@ -23,7 +23,10 @@ const signupRequest = (api, userInfo) => {
     return api.post('user/create/', userInfo).then(response => {
         console.log(response);
         // should modify the server to return token rather than this
-        return login(api, userInfo);
+        localStorage.setItem('access_token', response.data.access);
+        localStorage.setItem('refresh_token', response.data.refresh);
+
+
         //return response.data;
 
     }).catch(error => {
