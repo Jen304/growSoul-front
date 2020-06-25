@@ -22,8 +22,7 @@
     "nuxt-storage": "^1.2.2",
     "push-dir": "^0.4.1",
     "vue-chartjs": "^3.5.0",
-    "vue-moment": "^4.1.0",
-    "vue-notifications": "^1.0.2"
+    "vue-moment": "^4.1.0"
   },
   "devDependencies": {
     "@mdi/font": "^5.1.45",

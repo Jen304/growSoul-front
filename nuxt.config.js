@@ -34,7 +34,6 @@ export default {
   */
   plugins: [
     '~/plugins/vue-moment',
-    '~/plugins/vue-notifications',
     "~/plugins/mixins.js",
 
 

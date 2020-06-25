@@ -9,6 +9,8 @@
 // inspect access token
 // check refresh token
 import axios from 'axios';
+import jwt_decode from 'jwt-decode' 
+
 const endpoint = axios.create({
     baseURL: 'http://127.0.0.1:8000/v1/',//'http://ec2-3-23-98-73.us-east-2.compute.amazonaws.com/v1/',
     timeout: 5000,
@@ -27,21 +29,26 @@ const nonAuthRequest = async (request, data) => {
         timeout: 5000,
 
     });
-    await request(endpoint, data);
-    // after send that request need to resetEndpoint
-    resetEndpoint();
+    try {
+        await request(endpoint, data);
+        console.log(data);
+        // after send that request need to resetEndpoint
+        resetEndpoint();
+    } catch (e) {
+        console.log(e);
+    }
 }
 const authRequest = async (request, data) => {
 
     //console.log(request)
     const token = localStorage.getItem('access_token');
-    //console.log(token)
+    console.log(token)
 
     if (token) {
 
         const decodedToken = jwt_decode(token);
         const expire_time = new Date(decodedToken.exp * 1000);
-        //console.log(expire_time.getTime() > (new Date()).getTime())
+        console.log(expire_time.getTime() > (new Date()).getTime())
 
         if (expire_time.getTime() <= (new Date()).getTime()) {
             try {
@@ -74,12 +81,13 @@ const authRequest = async (request, data) => {
     }
 
 }
-import jwt_decode from 'jwt-decode'
+
 //import { refreshToken } from './authService';
 // refresh the access token if refresh token still valid
 const checkRefreshToken = async () => {
     console.log("refreshToken");
     const token = localStorage.getItem('refresh_token');
+
     if (token) {
         const decodedToken = jwt_decode(token);
         const expire_time = new Date(decodedToken.exp * 1000);

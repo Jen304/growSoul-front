@@ -10,7 +10,7 @@ const loginRequest = (api, userInfo) => {
             //api.defaults.headers['Authorization'] = "JWT " + response.data.access;
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
-            return response.data;
+            return response.data.access;
         })
         .catch(error => {
             console.log(error);
@@ -25,7 +25,7 @@ const signupRequest = (api, userInfo) => {
         // should modify the server to return token rather than this
         localStorage.setItem('access_token', response.data.access);
         localStorage.setItem('refresh_token', response.data.refresh);
-
+        return response.data.access;
 
         //return response.data;
 

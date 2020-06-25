@@ -30,3 +30,5 @@ $ npm run generate
 ## Author
 > [Jen](https://github.com/Jen304)
 
+## Bugs
+* Should use Vuex to store endpoint header
