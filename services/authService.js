@@ -43,8 +43,8 @@ const logoutRequest = (api, refreshToken) => {
         .then(response => {
             //api.defaults.headers['Authorization'] = "JWT " + response.data.access;
             //localStorage.setItem('access_token', response.data.access);
-            localStorage.setItem('access_token', null);
-            localStorage.setItem('refresh_token', null);
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
             return response;
         })
         .catch(error => {

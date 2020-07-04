@@ -34,48 +34,6 @@
           </v-list-item-content>
         </v-list-item>
 
-        <!--
-        <v-list-item @click>
-          <v-list-item-action>
-            <v-icon>{{ settingIcon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Setting</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click>
-          <v-list-item-action>
-            <v-icon>{{ themeIcon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Change theme</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click>
-          <v-list-item-action>
-            <v-icon>{{ chartIcon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Emotional analysis</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click>
-          <v-list-item-action>
-            <v-icon>{{ languageIcon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Language</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click>
-          <v-list-item-action>
-            <v-icon>{{ infoIcon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>About us</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        -->
       </v-list>
     </v-navigation-drawer>
     <!-- Header -->
@@ -90,15 +48,11 @@
     <v-content>
       <nuxt />
     </v-content>
-    <!--
-    <v-footer color="cyan" app>
-      <v-spacer></v-spacer>
-      <span class="white--text">Grow your soul &copy; 2020</span>
-    </v-footer>-->
   </v-app>
 </template>
 <script>
 //import { inspectToken } from "../services/authService";
+import { authRequest } from '../services/connectServer';
 
 export default {
   data() {
@@ -108,8 +62,18 @@ export default {
     };
   },
   // check auth of user
-
-  middleware: ["auth"],
+  
+  async beforeCreate() {
+    try {
+        console.log("try user")
+        
+        this.$store.dispatch('auth/checkTokenFirstLoaded', true);
+    } catch (e) {
+        console.log('error occur')
+        console.log(e);
+        this.$router.push('/login');
+    }
+  },
   computed: {
     // Each page should register the title or it will should defaut title
     title() {

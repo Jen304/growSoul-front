@@ -1,6 +1,7 @@
 
 export const state = () => ({
-    /*axiosInstance: axios.create({
+    /*
+    axiosInstance: axios.create({
         baseURL: 'http://127.0.0.1:8000/v1/',
         timeout: 5000,
         headers: {
@@ -11,17 +12,13 @@ export const state = () => ({
     })*/
 
 })
-/*
-export const mutations = {
-    increment(state) {
-        state.counter++;
-    }
-}*/
-/*
+
+
+
 export const mutations = {
     refreshToken(state, newToken) {
         state.axiosInstance.defaults.headers['Authorization'] = "JWT " + newToken;
 
     }
 }
-*/
+
